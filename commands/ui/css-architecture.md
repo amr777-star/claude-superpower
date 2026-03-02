@@ -58,6 +58,74 @@ Atoms > Molecules > Organisms > Templates > Pages
 ### Module-Based
 Base > Layout > Modules > State > Theme
 
+## Modern CSS Features (2025-2026)
+
+### CSS Cascade Layers (`@layer`)
+```css
+@layer reset, tokens, base, components, utilities;
+
+@layer reset { /* normalize */ }
+@layer tokens { :root { --color-primary: oklch(0.55 0.20 260); } }
+@layer base { body { font-family: var(--font-sans); } }
+@layer components { .btn { padding: var(--spacing-sm) var(--spacing-md); } }
+@layer utilities { .sr-only { position: absolute; width: 1px; } }
+```
+
+### CSS Nesting (native)
+```css
+.card {
+  padding: 1rem;
+  & .title { font-size: 1.25rem; }
+  &:hover { box-shadow: var(--shadow-md); }
+  @media (min-width: 768px) { padding: 1.5rem; }
+}
+```
+
+### Container Queries
+```css
+.card-container { container-type: inline-size; container-name: card; }
+@container card (min-width: 400px) {
+  .card { flex-direction: row; }
+}
+```
+
+### `:has()` Selector (Parent Selector)
+```css
+.form-group:has(:invalid) { border-color: var(--color-error); }
+.card:has(img) { padding-top: 0; }
+nav:has(.active) .indicator { opacity: 1; }
+```
+
+### `@starting-style` (Entry Animations)
+```css
+dialog[open] {
+  opacity: 1; transform: scale(1);
+  @starting-style { opacity: 0; transform: scale(0.95); }
+  transition: opacity 0.2s, transform 0.2s, display 0.2s allow-discrete;
+}
+```
+
+### `color-mix()` for Dynamic Palettes
+```css
+:root {
+  --primary: oklch(0.55 0.20 260);
+  --primary-light: color-mix(in oklch, var(--primary) 30%, white);
+  --primary-dark: color-mix(in oklch, var(--primary) 80%, black);
+}
+```
+
+### Scroll-Driven Animations
+```css
+@keyframes reveal { from { opacity: 0; } to { opacity: 1; } }
+.reveal {
+  animation: reveal linear both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 100%;
+}
+```
+
+When adopting modern CSS, always check `@supports` for progressive enhancement and provide fallbacks where browser support is incomplete.
+
 Focus on long-term maintainability and team scalability while keeping development velocity high.
 
 $ARGUMENTS

@@ -56,8 +56,8 @@ if $NEEDS_BACKUP; then
     log "Backup complete."
 fi
 
-# ---- Install Agents (167 subagents) ----
-log "Installing 167 specialist subagents..."
+# ---- Install Agents ----
+log "Installing specialist subagents..."
 cp "$SCRIPT_DIR"/agents/*.md "$CLAUDE_DIR/agents/"
 AGENT_COUNT=$(ls "$CLAUDE_DIR/agents/"*.md 2>/dev/null | wc -l)
 log "  Agents installed: $AGENT_COUNT"
@@ -125,9 +125,9 @@ echo ""
 log "Installed to: $CLAUDE_DIR"
 echo ""
 echo "  Components:"
-echo "    Agents:              $AGENT_COUNT (includes 7 guardrail + 14 specialist)"
-echo "    Orchestrator Skills: 13 (8 workflow + 5 power tools)"
-echo "    Slash Commands:      19 (10 general + 9 UI)"
+echo "    Agents:              $AGENT_COUNT (includes 7 guardrail + 18 UI/UX specialist)"
+echo "    Orchestrator Skills: $SKILL_COUNT (8 workflow + 5 power tools)"
+echo "    Slash Commands:      32 (10 general + 22 UI)"
 echo "    GSD Commands:        31"
 echo "    Catalog Commands:    5"
 echo "    Master Config:       CLAUDE.md (with code generation guardrails)"

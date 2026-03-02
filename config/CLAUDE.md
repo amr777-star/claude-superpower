@@ -2,7 +2,7 @@
 
 ## Agent System Overview
 
-You have **135+ specialized subagents** at `~/.claude/agents/` and **15 slash command agents** at `~/.claude/commands/`. You MUST proactively delegate work to the most appropriate agent. Do NOT do everything yourself when a specialist exists.
+You have **180+ specialized subagents** at `~/.claude/agents/` and **32 slash command agents** at `~/.claude/commands/`. You MUST proactively delegate work to the most appropriate agent. Do NOT do everything yourself when a specialist exists.
 
 ## Slash Command vs Subagent Decision
 
@@ -71,12 +71,15 @@ When writing, debugging, or reviewing code in a specific language:
 - Next.js → `nextjs-developer`
 - Vue → `vue-expert`
 - Angular → `angular-architect`
+- Svelte/SvelteKit → `svelte-developer`
 - Django → `django-developer`
 - Laravel → `laravel-specialist`
 - Rails → `rails-expert`
 - Spring Boot → `spring-boot-engineer`
 - Flutter → `flutter-expert`
 - Electron → `electron-pro`
+- NestJS → `nestjs-developer`
+- FastAPI → `fastapi-specialist`
 
 ### 3. Infrastructure & DevOps
 - Docker/containers → `docker-expert`
@@ -123,15 +126,63 @@ When writing, debugging, or reviewing code in a specific language:
 - NLP → `nlp-engineer`
 - Prompt engineering → `prompt-engineer`
 
-### 6. Frontend & UI (slash commands for quick generation)
+### 6. Frontend & UI
+
+#### Animation & Motion Specialists
+- Framer Motion / Motion → `framer-motion-expert`
+- GSAP / ScrollTrigger → `gsap-specialist`
+- Lottie / Rive integration → `lottie-rive-specialist`
+- Animated component patterns (Aceternity, Magic UI) → `ui-animation-library`
+
+#### CSS & Styling Specialists
+- Tailwind CSS v4 → `tailwind-expert`
+- CSS-in-JS (styled-components, Emotion, vanilla-extract, Panda CSS, StyleX) → `css-in-js-specialist`
+- Modern CSS patterns → `/ui:css-modern-patterns`
+- CSS architecture → `/ui:css-architecture`
+
+#### Component & Design System Specialists
+- shadcn/ui components → `shadcn-ui-specialist`
+- Design system architecture → `design-system-architect`
+- Design tokens (W3C DTCG, Style Dictionary) → `design-token-engineer`
+- Storybook documentation → `storybook-specialist`
+
+#### Data Visualization
+- Charts & dashboards (D3, Recharts, Chart.js) → `dataviz-engineer`
+- Dashboard layouts → `/ui:dashboard-layout`
+
+#### Performance & Quality
+- Core Web Vitals, image/font optimization → `frontend-performance-specialist`
+- Visual regression testing → `visual-regression-tester`
+
+#### Design Intelligence
+- Design trends & best practices (Dribbble, Awwwards patterns) → `design-reference`
+- Current 2025-2026 design patterns: OKLCH colors, fluid clamp() typography, bento grids, glassmorphism, spring animations
+
+#### Specialized UI Domains
+- SVG creation & optimization → `svg-engineer`
+- Three.js / React Three Fiber (3D) → `threejs-developer`
+- Email templates (MJML, React Email) → `email-template-developer`
+- Internationalization (i18n, RTL) → `i18n-specialist`
+
+#### Slash Commands (quick generators)
 - Design systems → `/ui:design-system` or `/ui:design-expert`
 - React components → `/ui:react-component`
 - Mobile design → `/ui:mobile-design`
 - Responsive layouts → `/ui:mobile-first-layout`
-- CSS architecture → `/ui:css-architecture`
 - Animations → `/ui:micro-interactions`
 - Accessibility (ARIA) → `/ui:aria-accessibility`
 - User personas → `/ui:user-persona`
+- Wireframes → `/ui:wireframe`
+- Form patterns → `/ui:form-patterns`
+- Data tables → `/ui:table-patterns`
+- Scroll animations → `/ui:scroll-animations`
+- Page transitions → `/ui:page-transitions`
+- Icon systems → `/ui:icon-system`
+- Multi-theme → `/ui:multi-theme`
+- OG images → `/ui:og-image`
+- Typography systems → `/ui:typography-system`
+- Color systems → `/ui:color-system`
+- PDF templates → `/ui:pdf-template`
 - UI design (subagent) → `ui-designer`
 - Frontend dev (subagent) → `frontend-developer`
 
@@ -239,11 +290,11 @@ The workflow chains defined above now have skill entry points:
 **Power Tools** (2): `/scaffold`, `/impact-check`
 **Background** (2): `project-context` (auto-context), `agent-guide` (routing reference)
 
-### Slash Commands (19 total, invoke with /)
+### Slash Commands (32 total, invoke with /)
 **General** (10): `/code-review`, `/creative-writer`, `/data-analyst`, `/project-manager`, `/research-assistant`, `/system-architect`, `/test-gen`, `/explain`, `/security-scan`, `/perf-audit`
-**UI** (9): `/ui:design-system`, `/ui:design-expert`, `/ui:mobile-design`, `/ui:react-component`, `/ui:css-architecture`, `/ui:user-persona`, `/ui:micro-interactions`, `/ui:mobile-first-layout`, `/ui:aria-accessibility`
+**UI** (22): `/ui:design-system`, `/ui:design-expert`, `/ui:mobile-design`, `/ui:react-component`, `/ui:css-architecture`, `/ui:user-persona`, `/ui:micro-interactions`, `/ui:mobile-first-layout`, `/ui:aria-accessibility`, `/ui:wireframe`, `/ui:form-patterns`, `/ui:table-patterns`, `/ui:scroll-animations`, `/ui:css-modern-patterns`, `/ui:page-transitions`, `/ui:dashboard-layout`, `/ui:icon-system`, `/ui:multi-theme`, `/ui:og-image`, `/ui:typography-system`, `/ui:color-system`, `/ui:pdf-template`
 
-### Subagents (167+ total, in `~/.claude/agents/`)
+### Subagents (180+ total, in `~/.claude/agents/`)
 **Browse**: `/subagent-catalog:list`, `/subagent-catalog:search <query>`, `/subagent-catalog:fetch <name>`
 
 ## Code Generation Guardrails

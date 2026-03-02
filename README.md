@@ -1,14 +1,14 @@
 # Claude Superpower
 
-> Turn Claude into a self-routing AI coding army — 167 specialist agents, 13 orchestrator skills, 55 slash commands, code generation guardrails — auto-triggering across **every** Claude environment.
+> Turn Claude into a self-routing AI coding army — 185 specialist agents, 13 orchestrator skills, 68 slash commands, code generation guardrails — auto-triggering across **every** Claude environment.
 
 ## What's Inside
 
 | Component | Count | Description |
 |-----------|-------|-------------|
-| **Subagents** | 167 | Language, framework, DevOps, security, data, guardrail, and domain specialists |
+| **Subagents** | 185 | Language, framework, DevOps, security, data, guardrail, UI/UX, and domain specialists |
 | **Orchestrator Skills** | 13 | Workflow chains that sequence multiple agents automatically |
-| **Slash Commands** | 19 | Quick generators for reviews, designs, plans, tests, and analysis |
+| **Slash Commands** | 32 | Quick generators for reviews, designs, plans, tests, UI patterns, and analysis |
 | **GSD Commands** | 31 | Project management workflow (Get Shit Done system) |
 | **Catalog Commands** | 5 | Agent discovery and browsing |
 | **Guardrail Rules** | 9 | CLAUDE.md rules preventing common AI coding mistakes |
@@ -236,6 +236,11 @@ Debug & Fix:       debugger → language-specialist → output-validator → sel
 
 ### Architecture & API (7)
 `api-designer` `api-documenter` `graphql-architect` `microservices-architect` `mcp-developer` `websocket-engineer` `kafka-architect`
+
+### UI/UX & Animation Specialists (18) — NEW
+`framer-motion-expert` `gsap-specialist` `svg-engineer` `tailwind-expert` `shadcn-ui-specialist` `dataviz-engineer` `storybook-specialist` `frontend-performance-specialist` `design-token-engineer` `css-in-js-specialist` `design-system-architect` `threejs-developer` `email-template-developer` `i18n-specialist` `lottie-rive-specialist` `visual-regression-tester` `design-reference` `ui-animation-library`
+
+> Animation (Framer Motion, GSAP, Lottie/Rive), CSS (Tailwind v4, CSS-in-JS), component libraries (shadcn/ui, Storybook), data viz (D3, Recharts), design intelligence (2025-2026 trends from Dribbble/Awwwards), performance (Core Web Vitals), and more.
 
 ### Frontend & UX (3)
 `frontend-developer` `ui-designer` `ux-researcher`

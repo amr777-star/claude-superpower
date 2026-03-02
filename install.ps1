@@ -74,7 +74,7 @@ Copy-Item "$ScriptDir\commands\general\*.md" "$ClaudeDir\commands\" -Force -Erro
 Copy-Item "$ScriptDir\commands\ui\*.md" "$ClaudeDir\commands\ui\" -Force -ErrorAction SilentlyContinue
 Copy-Item "$ScriptDir\commands\gsd\*.md" "$ClaudeDir\commands\gsd\" -Force -ErrorAction SilentlyContinue
 Copy-Item "$ScriptDir\commands\subagent-catalog\*.md" "$ClaudeDir\commands\subagent-catalog\" -Force -ErrorAction SilentlyContinue
-Log "  Commands installed: general(10), UI(9), GSD(31), catalog(5)"
+Log "  Commands installed: general(10), UI(22), GSD(31), catalog(5)"
 
 # ---- Install CLAUDE.md ----
 Log "Installing CLAUDE.md..."
@@ -90,9 +90,9 @@ Write-Host ""
 Log "Installed to: $ClaudeDir"
 Write-Host ""
 Write-Host "  Components:"
-Write-Host "    Agents:              $agentCount (includes 7 guardrail + 14 specialist)"
+Write-Host "    Agents:              $agentCount (includes 7 guardrail + 18 UI/UX specialist)"
 Write-Host "    Orchestrator Skills: $skillCount (8 workflow + 5 power tools)"
-Write-Host "    Slash Commands:      19 (10 general + 9 UI)"
+Write-Host "    Slash Commands:      32 (10 general + 22 UI)"
 Write-Host "    GSD Commands:        31"
 Write-Host "    Catalog Commands:    5"
 Write-Host "    Master Config:       CLAUDE.md (with code generation guardrails)"
