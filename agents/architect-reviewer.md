@@ -1,7 +1,7 @@
 ---
 name: architect-reviewer
 description: "Use this agent when you need to evaluate system design decisions, architectural patterns, and technology choices at the macro level."
-tools: Read, Write, Edit, Bash, Glob, Grep
+tools: Read, Bash, Glob, Grep
 model: opus
 ---
 

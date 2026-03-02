@@ -1,68 +1,54 @@
 ---
 name: project-context
-description: Silently provides live project metadata and environment context to enhance all agent interactions. This skill injects git state, project type, directory structure, and development environment information so agents start informed instead of spending turns discovering basic project facts.
+description: Silently provides live project metadata and environment context to enhance all agent interactions. Injects git state, project type, directory structure, test framework, CI/CD, monorepo, linter, Docker, and database config so agents start informed.
 user-invocable: false
 ---
 
 # Project Context
 
-This background context is automatically available. Use it to inform all subsequent agent interactions and code generation tasks.
+Automatically available background context for all agent interactions.
 
 ## Repository State
-
 **Git root**: !`git rev-parse --show-toplevel 2>/dev/null || echo "not a git repo"`
 **Current branch**: !`git branch --show-current 2>/dev/null || echo "not a git repo"`
-**Recent commits**:
-!`git log --oneline -3 2>/dev/null || echo "no commits"`
+**Recent commits**: !`git log --oneline -3 2>/dev/null || echo "no commits"`
 **Uncommitted changes**: !`git status --short 2>/dev/null | head -10 || echo "not a git repo"`
 
-## Project Type Detection
-
-**Manifest file**:
-!`cat package.json 2>/dev/null | head -5 || cat pyproject.toml 2>/dev/null | head -5 || cat Cargo.toml 2>/dev/null | head -5 || cat go.mod 2>/dev/null | head -5 || cat pom.xml 2>/dev/null | head -5 || cat build.gradle 2>/dev/null | head -3 || cat composer.json 2>/dev/null | head -5 || cat Gemfile 2>/dev/null | head -5 || cat mix.exs 2>/dev/null | head -5 || echo "no manifest found"`
+## Project Type
+**Manifest**: !`cat package.json 2>/dev/null | head -5 || cat pyproject.toml 2>/dev/null | head -5 || cat Cargo.toml 2>/dev/null | head -5 || cat go.mod 2>/dev/null | head -5 || cat pom.xml 2>/dev/null | head -5 || cat composer.json 2>/dev/null | head -5 || echo "no manifest"`
 
 ## Directory Structure
+!`ls -1 2>/dev/null | head -20 || echo "empty"`
 
-**Top-level files and directories**:
-!`ls -1 2>/dev/null | head -20 || echo "empty or inaccessible"`
+## Monorepo Detection
+!`[ -f lerna.json ] && echo "lerna" || [ -f nx.json ] && echo "nx" || [ -f pnpm-workspace.yaml ] && echo "pnpm-workspaces" || echo "single-package"`
 
-## Project Type Rules
+## Test Framework
+!`grep -l jest package.json 2>/dev/null && echo "jest" || grep -l vitest package.json 2>/dev/null && echo "vitest" || [ -f pytest.ini ] && echo "pytest" || [ -f phpunit.xml ] && echo "phpunit" || echo "unknown"`
 
-Based on the manifest and directory structure above, determine the project type:
+## CI/CD
+!`ls .github/workflows/*.yml 2>/dev/null | head -2 || [ -f .gitlab-ci.yml ] && echo "gitlab-ci" || [ -f Jenkinsfile ] && echo "jenkins" || echo "no CI/CD"`
 
-| Signal | Project Type | Primary Language | Agent |
-|--------|-------------|-----------------|-------|
-| `package.json` + `tsconfig.json` | Node/TypeScript | TypeScript | `typescript-pro` |
-| `package.json` without `tsconfig` | Node/JavaScript | JavaScript | `javascript-pro` |
-| `pyproject.toml` or `requirements.txt` | Python | Python | `python-pro` |
-| `Cargo.toml` | Rust | Rust | `rust-engineer` |
-| `go.mod` | Go | Go | `golang-pro` |
-| `pom.xml` or `build.gradle` | Java/JVM | Java | `java-architect` |
-| `.csproj` or `.sln` | .NET | C# | `csharp-developer` |
-| `composer.json` | PHP | PHP | `php-pro` |
-| `Gemfile` | Ruby | Ruby | `rails-expert` |
-| `mix.exs` | Elixir | Elixir | `elixir-expert` |
-| `Package.swift` | Swift | Swift | `swift-expert` |
-| `CMakeLists.txt` | C/C++ | C++ | `cpp-pro` |
+## Linter and Formatter
+!`[ -f .eslintrc.json ] && echo "eslint" || [ -f eslint.config.js ] && echo "eslint-flat" || echo "no-eslint"; [ -f .prettierrc ] && echo "prettier" || echo ""; [ -f ruff.toml ] && echo "ruff" || echo ""`
 
-## Framework Detection
+## Docker
+!`[ -f Dockerfile ] && echo "Dockerfile" || echo ""; [ -f docker-compose.yml ] && echo "docker-compose" || echo "no Docker"`
 
-| Signal | Framework | Agent |
-|--------|-----------|-------|
-| `next.config` or `@next/` in deps | Next.js | `nextjs-developer` |
-| `react` in deps without next | React | `react-specialist` |
-| `vue` in deps | Vue | `vue-expert` |
-| `@angular/core` in deps | Angular | `angular-architect` |
-| `django` in deps | Django | `django-developer` |
-| `laravel` in deps | Laravel | `laravel-specialist` |
-| `rails` in Gemfile | Rails | `rails-expert` |
-| `spring-boot` in deps | Spring Boot | `spring-boot-engineer` |
-| `flutter` in deps | Flutter | `flutter-expert` |
-| `electron` in deps | Electron | `electron-pro` |
+## Database/ORM
+!`grep -q prisma package.json 2>/dev/null && echo "prisma" || grep -q typeorm package.json 2>/dev/null && echo "typeorm" || grep -q sqlalchemy requirements.txt 2>/dev/null && echo "sqlalchemy" || echo "unknown"`
 
-## Usage Instructions
+## Environment
+!`[ -f .env.example ] && echo ".env.example exists" || echo "no env template"`
 
-This context is injected silently. When delegating to any subagent:
-- Include the detected project type and language so the agent doesn't waste turns discovering it
-- Reference the branch and recent commits for change context
-- Use the directory structure to inform file discovery
+## Routing Table
+| Signal | Type | Agent |
+|--------|------|-------|
+| package.json + tsconfig | TypeScript | typescript-pro |
+| package.json only | JavaScript | javascript-pro |
+| pyproject.toml | Python | python-pro |
+| Cargo.toml | Rust | rust-engineer |
+| go.mod | Go | golang-pro |
+| pom.xml / build.gradle | Java | java-architect |
+| .csproj / .sln | .NET | csharp-developer |
+| composer.json | PHP | php-pro |

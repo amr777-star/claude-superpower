@@ -1,17 +1,18 @@
 # Claude Superpower
 
-> Turn Claude into a self-routing AI coding army — 146 specialist agents, 8 orchestrator skills, 51 slash commands — auto-triggering across **every** Claude environment.
+> Turn Claude into a self-routing AI coding army — 167 specialist agents, 13 orchestrator skills, 55 slash commands, code generation guardrails — auto-triggering across **every** Claude environment.
 
 ## What's Inside
 
 | Component | Count | Description |
 |-----------|-------|-------------|
-| **Subagents** | 146 | Language, framework, DevOps, security, data, and domain specialists |
-| **Orchestrator Skills** | 8 | Workflow chains that sequence multiple agents automatically |
-| **Slash Commands** | 15 | Quick generators for reviews, designs, plans, and analysis |
+| **Subagents** | 167 | Language, framework, DevOps, security, data, guardrail, and domain specialists |
+| **Orchestrator Skills** | 13 | Workflow chains that sequence multiple agents automatically |
+| **Slash Commands** | 19 | Quick generators for reviews, designs, plans, tests, and analysis |
 | **GSD Commands** | 31 | Project management workflow (Get Shit Done system) |
 | **Catalog Commands** | 5 | Agent discovery and browsing |
-| **Master Config** | 1 | CLAUDE.md with auto-routing rules for all components |
+| **Guardrail Rules** | 9 | CLAUDE.md rules preventing common AI coding mistakes |
+| **Master Config** | 1 | CLAUDE.md with auto-routing rules + guardrails |
 | **Web Instructions** | 1 | Portable project instructions for claude.ai |
 
 ## Setup Guide
@@ -27,7 +28,7 @@
 
 ### 1. Claude Code (CLI / VS Code / JetBrains) — Full Power
 
-This is the primary environment. All 146 agents, 8 skills, and 51 commands work here with full auto-triggering.
+This is the primary environment. All 167 agents, 13 skills, and 55 commands work here with full auto-triggering.
 
 **On Bash (Linux / macOS / Git Bash on Windows):**
 ```bash
@@ -44,10 +45,10 @@ cd claude-superpower
 ```
 
 **What happens:**
-- Creates `~/.claude/agents/` with 146 specialist subagents
-- Creates `~/.claude/skills/` with 8 orchestrator skills
-- Creates `~/.claude/commands/` with 51 slash commands
-- Installs `~/.claude/CLAUDE.md` master routing config
+- Creates `~/.claude/agents/` with 167 specialist subagents (including 7 guardrail agents)
+- Creates `~/.claude/skills/` with 13 orchestrator skills
+- Creates `~/.claude/commands/` with 55 slash commands
+- Installs `~/.claude/CLAUDE.md` master routing config with code generation guardrails
 - Backs up any existing setup before overwriting
 
 **Verify it works:**
@@ -78,6 +79,7 @@ Claude.ai doesn't support skills/agents directly, but you can replicate the spec
 - Auto-detection of language/framework from context
 - 5 workflow chains (code-gen, code-mod, review, debug, deploy)
 - 3-dimension code review (quality + security + performance)
+- Code generation guardrails (correctness, security, simplicity, dependencies, etc.)
 - Impact analysis format
 - Commit message generation
 - Project scaffolding knowledge
@@ -170,18 +172,32 @@ const response = await client.messages.create({
 
 ---
 
-## Orchestrator Skills
+## Orchestrator Skills (13)
 
+### Workflow Orchestrators
 | Skill | Command | What It Does |
 |-------|---------|-------------|
 | **workflow-runner** | `/workflow-runner <chain>` | Runs: `code-gen`, `code-mod`, `review`, `deploy`, `debug` |
 | **smart-commit** | `/smart-commit` | Pre-commit validation + message generation + git commit |
-| **deep-review** | `/deep-review [files]` | Parallel code + security + performance review |
+| **deep-review** | `/deep-review [files]` | Parallel code + security + performance review (forked context) |
 | **debug-flow** | `/debug-flow <error>` | Root cause → fix → validate → test |
 | **scaffold** | `/scaffold <type> <desc>` | Architecture + design + code gen for new projects |
-| **impact-check** | `/impact-check` | Blast-radius analysis before changes |
-| **project-context** | *(auto)* | Background: injects git state, project type |
-| **agent-guide** | *(auto)* | Background: routing decision matrix |
+| **impact-check** | `/impact-check` | Blast-radius analysis before changes (forked context) |
+
+### Power Tool Skills (new)
+| Skill | Command | What It Does |
+|-------|---------|-------------|
+| **gen-tests** | `/gen-tests [files]` | Convention-aware test generation → quality audit |
+| **refactor** | `/refactor <target>` | Impact analysis → refactor → validate → test |
+| **migrate** | `/migrate <from> <to>` | Stepwise migration with rollback plan |
+| **doc-gen** | `/doc-gen [scope]` | Auto-generate docs from code (API, architecture, README) |
+| **dep-audit** | `/dep-audit` | Outdated + vulnerable + unused dependency scan (forked context) |
+
+### Background Auto-Context
+| Skill | What It Does |
+|-------|-------------|
+| **project-context** | Injects git state, project type, monorepo, CI/CD, linter, Docker, DB/ORM |
+| **agent-guide** | Routing decision matrix for agent selection |
 
 ## Workflow Chains
 
@@ -193,7 +209,7 @@ Pre-Deployment:    quality-gate + security-auditor + change-impact-analyzer (par
 Debug & Fix:       debugger → language-specialist → output-validator → self-corrector → test-automator
 ```
 
-## 146 Specialist Agents
+## 167 Specialist Agents
 
 <details>
 <summary>Click to see all agents by category</summary>
@@ -201,20 +217,25 @@ Debug & Fix:       debugger → language-specialist → output-validator → sel
 ### Language Specialists (14)
 `typescript-pro` `javascript-pro` `python-pro` `rust-engineer` `golang-pro` `cpp-pro` `csharp-developer` `java-architect` `php-pro` `swift-expert` `kotlin-specialist` `sql-pro` `elixir-expert` `dotnet-core-expert`
 
-### Framework Specialists (10)
-`react-specialist` `nextjs-developer` `vue-expert` `angular-architect` `django-developer` `laravel-specialist` `rails-expert` `spring-boot-engineer` `flutter-expert` `electron-pro`
+### Framework Specialists (12)
+`react-specialist` `nextjs-developer` `vue-expert` `angular-architect` `django-developer` `laravel-specialist` `rails-expert` `spring-boot-engineer` `flutter-expert` `electron-pro` `nestjs-developer` `fastapi-specialist` `svelte-developer`
 
-### DevOps & Infrastructure (15)
-`docker-expert` `kubernetes-specialist` `terraform-engineer` `terragrunt-expert` `devops-engineer` `deployment-engineer` `cloud-architect` `azure-infra-engineer` `sre-engineer` `network-engineer` `platform-engineer` `windows-infra-admin` `m365-admin` `it-ops-orchestrator` `devops-incident-responder`
+### DevOps & Infrastructure (21)
+`docker-expert` `kubernetes-specialist` `terraform-engineer` `terragrunt-expert` `devops-engineer` `deployment-engineer` `cloud-architect` `azure-infra-engineer` `aws-architect` `gcp-architect` `sre-engineer` `network-engineer` `platform-engineer` `windows-infra-admin` `m365-admin` `it-ops-orchestrator` `devops-incident-responder` `helm-specialist` `ansible-specialist` `monitoring-specialist`
 
 ### Quality & Security (15)
 `code-reviewer` `security-auditor` `security-engineer` `penetration-tester` `compliance-auditor` `performance-engineer` `qa-expert` `test-automator` `accessibility-tester` `architect-reviewer` `chaos-engineer` `output-validator` `self-corrector` `quality-gate` `pre-commit-checker`
 
-### Data & AI (12)
-`sql-pro` `postgres-pro` `database-optimizer` `database-administrator` `data-engineer` `data-scientist` `ml-engineer` `machine-learning-engineer` `mlops-engineer` `llm-architect` `ai-engineer` `nlp-engineer`
+### Guardrail Agents (7) — NEW
+`logic-verifier` `security-lint` `convention-scanner` `import-verifier` `complexity-checker` `error-handling-checker` `test-quality-auditor`
 
-### Architecture & API (6)
-`api-designer` `api-documenter` `graphql-architect` `microservices-architect` `mcp-developer` `websocket-engineer`
+> These lightweight agents auto-check generated code for edge cases, OWASP vulnerabilities, project conventions, import validity, over-engineering, error handling gaps, and test quality.
+
+### Data & AI (14)
+`sql-pro` `postgres-pro` `mongodb-specialist` `redis-specialist` `elasticsearch-specialist` `database-optimizer` `database-administrator` `data-engineer` `data-scientist` `ml-engineer` `mlops-engineer` `llm-architect` `ai-engineer` `nlp-engineer`
+
+### Architecture & API (7)
+`api-designer` `api-documenter` `graphql-architect` `microservices-architect` `mcp-developer` `websocket-engineer` `kafka-architect`
 
 ### Frontend & UX (3)
 `frontend-developer` `ui-designer` `ux-researcher`
@@ -225,8 +246,8 @@ Debug & Fix:       debugger → language-specialist → output-validator → sel
 ### Business & Product (12)
 `business-analyst` `product-manager` `scrum-master` `sales-engineer` `market-researcher` `competitive-analyst` `content-marketer` `seo-specialist` `technical-writer` `prompt-engineer` `research-analyst` `trend-analyst`
 
-### Specialized Domains (10+)
-`blockchain-developer` `fintech-engineer` `game-developer` `iot-engineer` `embedded-systems` `mobile-developer` `fullstack-developer` `backend-developer` `incident-responder` `search-specialist` `wordpress-master`
+### Specialized Domains (12)
+`blockchain-developer` `fintech-engineer` `game-developer` `iot-engineer` `embedded-systems` `mobile-developer` `fullstack-developer` `backend-developer` `incident-responder` `search-specialist` `wordpress-master` `oauth-specialist` `e2e-test-specialist`
 
 </details>
 
@@ -257,23 +278,34 @@ bash install.sh    # Deploy to ~/.claude/
 
 ```
 claude-superpower/
-├── agents/              # 146 specialist subagent prompts (.md)
-├── skills/              # 8 orchestrator skill directories
+├── agents/              # 167 specialist subagent prompts (.md)
+│   ├── [language]-pro.md        # 14 language specialists
+│   ├── [framework]-*.md         # 12 framework specialists
+│   ├── [infra]-*.md             # 21 DevOps/infrastructure agents
+│   ├── logic-verifier.md        # 7 guardrail agents (NEW)
+│   ├── aws-architect.md         # 14 new specialist agents
+│   └── ...
+├── skills/              # 13 orchestrator skill directories
 │   ├── workflow-runner/   # + references/chains.md
 │   ├── smart-commit/
-│   ├── deep-review/
+│   ├── deep-review/       # context: fork
 │   ├── debug-flow/
 │   ├── project-context/   # user-invocable: false (background)
 │   ├── agent-guide/       # user-invocable: false (background)
 │   ├── scaffold/          # + references/templates.md
-│   └── impact-check/
+│   ├── impact-check/      # context: fork
+│   ├── gen-tests/         # NEW: test generation
+│   ├── refactor/          # NEW: structured refactoring
+│   ├── migrate/           # NEW: migration workflows
+│   ├── doc-gen/           # NEW: documentation generation
+│   └── dep-audit/         # NEW: dependency audit (context: fork)
 ├── commands/
-│   ├── general/           # 6: code-review, creative-writer, data-analyst, etc.
+│   ├── general/           # 10: code-review, test-gen, explain, security-scan, etc.
 │   ├── ui/                # 9: design-system, react-component, mobile-design, etc.
 │   ├── gsd/               # 31: project management commands
 │   └── subagent-catalog/  # 5: list, search, fetch, invalidate
 ├── config/
-│   ├── CLAUDE.md                    # Master auto-routing config
+│   ├── CLAUDE.md                    # Master auto-routing config + guardrails
 │   ├── claude-web-instructions.md   # For claude.ai Projects
 │   └── claude-desktop-setup.md      # Desktop app guide
 ├── install.sh           # Bash installer (Linux/Mac/Git Bash)

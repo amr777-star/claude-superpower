@@ -239,9 +239,61 @@ The workflow chains defined above now have skill entry points:
 **Power Tools** (2): `/scaffold`, `/impact-check`
 **Background** (2): `project-context` (auto-context), `agent-guide` (routing reference)
 
-### Slash Commands (15 total, invoke with /)
-**General** (6): `/code-review`, `/creative-writer`, `/data-analyst`, `/project-manager`, `/research-assistant`, `/system-architect`
+### Slash Commands (19 total, invoke with /)
+**General** (10): `/code-review`, `/creative-writer`, `/data-analyst`, `/project-manager`, `/research-assistant`, `/system-architect`, `/test-gen`, `/explain`, `/security-scan`, `/perf-audit`
 **UI** (9): `/ui:design-system`, `/ui:design-expert`, `/ui:mobile-design`, `/ui:react-component`, `/ui:css-architecture`, `/ui:user-persona`, `/ui:micro-interactions`, `/ui:mobile-first-layout`, `/ui:aria-accessibility`
 
-### Subagents (135+ total, in `~/.claude/agents/`)
+### Subagents (167+ total, in `~/.claude/agents/`)
 **Browse**: `/subagent-catalog:list`, `/subagent-catalog:search <query>`, `/subagent-catalog:fetch <name>`
+
+## Code Generation Guardrails
+
+ALWAYS follow these rules when generating or modifying code. These prevent the most common AI coding mistakes.
+
+### Correctness
+- After generating any function with loops, conditionals, or async operations, trace through at least 3 edge cases: empty input, single element, and boundary value before presenting code
+- NEVER present code without considering what happens when the input is null, empty, zero, negative, or at maximum value
+
+### Security
+- NEVER generate string-interpolated SQL — ALWAYS use parameterized queries
+- NEVER hardcode secrets, API keys, or passwords — use environment variables
+- NEVER use eval() or exec() with any external input
+- ALWAYS sanitize user input before rendering in HTML
+- ALWAYS validate and sanitize all API inputs at system boundaries
+
+### Simplicity
+- ALWAYS prefer the simplest solution that solves the stated problem
+- Never create a class when a function will do. Never create a library when a module will do
+- When the user says "simple", "quick", "script", or "prototype", constrain to single-file solutions with no external dependencies unless explicitly required
+
+### Dependencies
+- Before importing ANY library or using ANY API, check the project's package.json / requirements.txt / Cargo.toml for the ACTUAL installed version
+- NEVER assume a library is installed — verify first
+- Use API methods compatible with the project's actual dependency versions, not the latest version
+
+### Breaking Changes
+- Before modifying any function signature, exported interface, API endpoint, or database schema, search for ALL callers/consumers using Grep
+- NEVER present a partial change that leaves callers broken — update all callers in the same change set
+
+### Error Handling
+- NEVER use empty catch blocks — ALWAYS include a descriptive error message with context
+- ALWAYS clean up resources in finally blocks
+- For API endpoints, ALWAYS return consistent error response shapes
+- For async code, ALWAYS handle rejections
+
+### Test Quality
+- EVERY test must have at least one meaningful assertion
+- Test BEHAVIOR (inputs and outputs), not implementation (internal method calls)
+- Include at least one error/edge case test for every happy path test
+- NEVER mock the module under test
+
+### Git Discipline
+- NEVER use `git add .` or `git add -A` — always stage specific files by name
+- Each commit should contain ONE logical change
+- NEVER force-push to main/master
+- NEVER commit .env, credentials, or key files
+
+### Configuration
+- ALL hostnames, ports, credentials, and URLs must come from environment variables
+- Docker containers must NOT run as root
+- ALWAYS generate separate configs for dev/staging/prod when applicable

@@ -56,14 +56,14 @@ if $NEEDS_BACKUP; then
     log "Backup complete."
 fi
 
-# ---- Install Agents (146 subagents) ----
-log "Installing 146 specialist subagents..."
+# ---- Install Agents (167 subagents) ----
+log "Installing 167 specialist subagents..."
 cp "$SCRIPT_DIR"/agents/*.md "$CLAUDE_DIR/agents/"
 AGENT_COUNT=$(ls "$CLAUDE_DIR/agents/"*.md 2>/dev/null | wc -l)
 log "  Agents installed: $AGENT_COUNT"
 
-# ---- Install Orchestrator Skills (8 skills) ----
-log "Installing 8 orchestrator skills..."
+# ---- Install Orchestrator Skills (13 skills) ----
+log "Installing 13 orchestrator skills..."
 for skill_dir in "$SCRIPT_DIR"/skills/*/; do
     skill_name=$(basename "$skill_dir")
     mkdir -p "$CLAUDE_DIR/skills/$skill_name"
@@ -75,7 +75,7 @@ log "  Skills installed: $SKILL_COUNT"
 # ---- Install Slash Commands ----
 log "Installing slash commands..."
 
-# General (6)
+# General (10)
 cp "$SCRIPT_DIR"/commands/general/*.md "$CLAUDE_DIR/commands/" 2>/dev/null || true
 GEN_COUNT=$(ls "$SCRIPT_DIR"/commands/general/*.md 2>/dev/null | wc -l)
 log "  General commands: $GEN_COUNT"
@@ -125,14 +125,12 @@ echo ""
 log "Installed to: $CLAUDE_DIR"
 echo ""
 echo "  Components:"
-echo "    Agents:              $AGENT_COUNT"
-echo "    Orchestrator Skills: 8 (workflow-runner, smart-commit, deep-review,"
-echo "                            debug-flow, project-context, agent-guide,"
-echo "                            scaffold, impact-check)"
-echo "    Slash Commands:      15 (6 general + 9 UI)"
+echo "    Agents:              $AGENT_COUNT (includes 7 guardrail + 14 specialist)"
+echo "    Orchestrator Skills: 13 (8 workflow + 5 power tools)"
+echo "    Slash Commands:      19 (10 general + 9 UI)"
 echo "    GSD Commands:        31"
 echo "    Catalog Commands:    5"
-echo "    Master Config:       CLAUDE.md"
+echo "    Master Config:       CLAUDE.md (with code generation guardrails)"
 echo ""
 echo "  Works automatically in:"
 echo "    - Claude Code CLI (terminal)"
