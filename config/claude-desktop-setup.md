@@ -1,84 +1,155 @@
 # Claude Desktop Setup Guide
 
-## How Claude Desktop Works with Your Superpower Setup
+## Overview
 
-Claude Desktop app on Windows reads its config from:
-```
-%APPDATA%\Claude\claude_desktop_config.json
-```
+This guide makes your Claude Superpower system operational in the Claude Desktop app. There are multiple approaches depending on how you use Desktop.
 
-### Option 1: Use Claude Code from Desktop (Recommended)
+## Environment Coverage Matrix
 
-The simplest approach — Claude Desktop can launch Claude Code which already has all your agents, skills, and commands installed at `~/.claude/`.
+| Environment | Setup Method | Auto-Routing? | Agents Available? |
+|-------------|-------------|---------------|-------------------|
+| **Claude Code CLI** | `~/.claude/` directory (automatic) | Yes | All 296 components |
+| **VS Code + Claude Code** | Same `~/.claude/` (automatic) | Yes | All 296 components |
+| **JetBrains + Claude Code** | Same `~/.claude/` (automatic) | Yes | All 296 components |
+| **claude.ai Web** | Project custom instructions | Yes | Routing intelligence only |
+| **Claude Desktop** | System prompt (see below) | Yes | Routing intelligence only |
+| **Anthropic API/SDK** | System message | Yes | Routing intelligence only |
 
-1. Open Claude Desktop
-2. Use the terminal/code feature to invoke Claude Code
-3. All 146 agents, 8 orchestrator skills, and 15 slash commands are automatically available
+> **Note**: Claude Code CLI/VS Code/JetBrains get the full 296-component system (skills, subagents, slash commands) because they execute from `~/.claude/`. Web, Desktop, and API get the routing intelligence and guardrails — Claude applies specialist knowledge from its training rather than loading external agent files.
 
-### Option 2: Add Custom System Prompt to Desktop
+## Claude Desktop Configuration
 
-You can configure Claude Desktop with a system prompt that includes your routing intelligence:
+### Option 1: Custom Instructions (Recommended)
 
-1. Open Claude Desktop settings
-2. Find "Custom Instructions" or "System Prompt"
-3. Paste the contents of `claude-web-instructions.md` from this repo
+1. Open **Claude Desktop** app
+2. Go to **Settings** (gear icon or Ctrl+,)
+3. Find **"Custom Instructions"** or **"System Prompt"**
+4. Paste the contents of one of these files:
+   - **Full version**: `claude-web-instructions.md` (comprehensive, ~400 lines)
+   - **Compact version**: `claude-api-system-prompt.md` (token-efficient, ~120 lines)
+5. Save
 
-### Option 3: MCP Servers for Desktop
+### Option 2: Claude Code Integration
 
-If you use MCP servers with Claude Desktop, your existing `claude_desktop_config.json` already has:
-- Figma MCP (get_metadata, get_variable_defs, get_screenshot)
+If Claude Desktop supports running Claude Code:
+1. All 296 components are automatically available via `~/.claude/`
+2. No additional configuration needed
+3. Skills, subagents, and slash commands all work natively
 
-To add more MCP servers, edit:
+### Option 3: MCP Servers
+
+Claude Desktop supports MCP servers via its config file:
+
+**Config location**: `%APPDATA%\Claude\claude_desktop_config.json`
+
 ```json
-// %APPDATA%\Claude\claude_desktop_config.json
 {
   "mcpServers": {
-    "your-server": {
-      "command": "path/to/server",
-      "args": ["--arg1"]
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/claude-code-mcp-figma"]
+    },
+    "n8n": {
+      "command": "npx",
+      "args": ["-y", "n8n-mcp-server"],
+      "env": {
+        "N8N_BASE_URL": "http://localhost:5678",
+        "N8N_API_KEY": "your-api-key"
+      }
     }
   }
 }
 ```
 
-## Environment Coverage Matrix
+## What Each Environment Gets
 
-| Environment | How It Gets Superpower | Auto-Trigger? |
-|-------------|----------------------|---------------|
-| **Claude Code CLI** | `~/.claude/` directory (automatic) | Yes — CLAUDE.md routes all tasks |
-| **Claude Code + VS Code** | Same `~/.claude/` directory | Yes — same routing |
-| **Claude Code + JetBrains** | Same `~/.claude/` directory | Yes — same routing |
-| **claude.ai (web)** | Project Custom Instructions | Yes — paste `claude-web-instructions.md` |
-| **Claude Desktop** | System prompt or Claude Code integration | Depends on setup |
-| **Claude API** | Include routing prompt in system message | Yes — programmatic |
+### Full System (Claude Code CLI, VS Code, JetBrains)
 
-## For API/SDK Usage
+| Component | Count | How It Works |
+|-----------|-------|-------------|
+| **Orchestrator Skills** | 44 | Loaded from `~/.claude/skills/` — chain multiple agents |
+| **Subagents** | 185 | Loaded from `~/.claude/agents/` — deep specialist workers |
+| **Slash Commands** | 68 | Loaded from `~/.claude/commands/` — quick generators |
+| **CLAUDE.md Config** | 1 | Auto-routing rules, guardrails, workflow chains |
 
-If you're building apps with the Claude API, include the contents of `claude-web-instructions.md` in your system prompt to get the same specialist routing:
+### Routing Intelligence (Web, Desktop, API)
 
+| Capability | Available? |
+|------------|-----------|
+| Auto-detect language/framework | Yes |
+| Apply specialist knowledge | Yes (from Claude's training) |
+| Workflow chains (gen/mod/review/debug/deploy) | Yes |
+| Code generation guardrails | Yes |
+| Structured output formats (reviews, impact) | Yes |
+| Launch subagents | No (Claude Code only) |
+| Execute slash commands | No (Claude Code only) |
+| Run shell commands | No (Claude Code only) |
+
+## Quick Setup for Each Environment
+
+### claude.ai Web
+1. Create a new **Project** on claude.ai
+2. Open Project Settings -> **Custom Instructions**
+3. Paste contents of `claude-web-instructions.md`
+4. All conversations in that project now have superpower routing
+
+### Anthropic API / SDK
+Use `claude-api-system-prompt.md` as your system message:
+
+**Python (Anthropic SDK)**:
 ```python
 import anthropic
 
 client = anthropic.Anthropic()
 
-with open("config/claude-web-instructions.md") as f:
+with open("claude-api-system-prompt.md") as f:
     system_prompt = f.read()
 
 response = client.messages.create(
-    model="claude-sonnet-4-6-20250514",
+    model="claude-opus-4-6",
     max_tokens=4096,
     system=system_prompt,
-    messages=[{"role": "user", "content": "Review this Python code..."}]
+    messages=[{"role": "user", "content": "Your request here"}]
 )
 ```
 
-## Quick Verification
+**TypeScript (Anthropic SDK)**:
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+import { readFileSync } from "fs";
 
-After installing, verify each environment:
+const client = new Anthropic();
+const systemPrompt = readFileSync("claude-api-system-prompt.md", "utf-8");
 
-| Environment | Verification |
-|-------------|-------------|
-| Claude Code CLI | Run `claude` → type `/workflow-runner` → should autocomplete |
-| VS Code | Open Claude Code sidebar → type `/deep-review` → should autocomplete |
-| claude.ai web | Create test project → ask "review this code" → should auto-apply 3-dimension review |
-| Claude Desktop | Open app → ask a coding question → should apply specialist knowledge |
+const response = await client.messages.create({
+  model: "claude-opus-4-6",
+  max_tokens: 4096,
+  system: systemPrompt,
+  messages: [{ role: "user", content: "Your request here" }],
+});
+```
+
+**cURL**:
+```bash
+SYSTEM=$(cat claude-api-system-prompt.md)
+curl https://api.anthropic.com/v1/messages \
+  -H "x-api-key: $ANTHROPIC_API_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "content-type: application/json" \
+  -d "{
+    \"model\": \"claude-opus-4-6\",
+    \"max_tokens\": 4096,
+    \"system\": $(echo "$SYSTEM" | jq -Rs .),
+    \"messages\": [{\"role\": \"user\", \"content\": \"Your request\"}]
+  }"
+```
+
+## Verification
+
+After setup, test with these prompts to verify routing works:
+
+1. **Language routing**: "Write a TypeScript function to debounce API calls" — should apply strict typing, generics, no `any`
+2. **Framework routing**: "Create a Next.js API route with auth" — should use App Router, Server Actions
+3. **Security guardrails**: "Write a SQL query with user input" — should use parameterized queries
+4. **Review workflow**: "Review this code: [paste code]" — should analyze quality + security + performance
+5. **Debug workflow**: "Fix this error: [paste error]" — should trace root cause, minimal fix, suggest tests

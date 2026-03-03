@@ -2,7 +2,7 @@
 
 ## Agent System Overview
 
-You have **180+ specialized subagents** at `~/.claude/agents/` and **32 slash command agents** at `~/.claude/commands/`. You MUST proactively delegate work to the most appropriate agent. Do NOT do everything yourself when a specialist exists.
+You have **245 specialized subagents** at `~/.claude/agents/` and **32 slash command agents** at `~/.claude/commands/`. You MUST proactively delegate work to the most appropriate agent. Do NOT do everything yourself when a specialist exists.
 
 ## Slash Command vs Subagent Decision
 
@@ -65,6 +65,10 @@ When writing, debugging, or reviewing code in a specific language:
 - PowerShell → `powershell-7-expert` or `powershell-5.1-expert`
 - SQL → `sql-pro`
 - Elixir → `elixir-expert`
+- Ruby → `ruby-pro`
+- Scala → `scala-specialist`
+- R → `r-analyst`
+- Dart → `dart-specialist`
 
 ### 2. Framework-Specific Work
 - React → `react-specialist`
@@ -80,6 +84,13 @@ When writing, debugging, or reviewing code in a specific language:
 - Electron → `electron-pro`
 - NestJS → `nestjs-developer`
 - FastAPI → `fastapi-specialist`
+- Remix → `remix-developer`
+- Astro → `astro-developer`
+- Express.js → `express-specialist`
+- Flask → `flask-specialist`
+- htmx → `htmx-specialist`
+- React Native → `react-native-expert`
+- Supabase → `supabase-specialist`
 
 ### 3. Infrastructure & DevOps
 - Docker/containers → `docker-expert`
@@ -93,6 +104,13 @@ When writing, debugging, or reviewing code in a specific language:
 - Network issues → `network-engineer`
 - Platform engineering → `platform-engineer`
 - Windows infrastructure → `windows-infra-admin`
+- Serverless → `serverless-architect`
+- Cloudflare Workers/Pages → `cloudflare-specialist`
+- GitHub Actions → `github-actions-specialist`
+- Argo CD/GitOps → `argocd-specialist`
+- DevSecOps → `devsecops-engineer`
+- API gateways → `api-gateway-specialist`
+- Release management → `release-manager`
 
 ### 4. Quality, Security & Validation
 - Code review → `code-reviewer`
@@ -113,18 +131,39 @@ When writing, debugging, or reviewing code in a specific language:
 - **Quality gate → `quality-gate`** (before commit/deploy)
 - **Pre-commit check → `pre-commit-checker`** (before each commit)
 - **Change impact → `change-impact-analyzer`** (before significant changes)
+- Load testing → `load-test-engineer`
+- Contract testing → `contract-test-specialist`
+- Unit testing → `unit-test-specialist`
+- Threat hunting → `threat-hunter`
+- Malware analysis → `malware-analyst`
+- Cloud security → `cloud-security-engineer`
+- Application security → `appsec-engineer`
+- Red team operations → `red-team-operator`
+- Blue team/SOC → `blue-team-analyst`
+- Digital forensics → `forensics-analyst`
+- Identity/IAM security → `identity-security-architect`
 
 ### 5. Data & AI
 - Database queries/optimization → `sql-pro`, `postgres-pro`, or `database-optimizer`
 - Database administration → `database-administrator`
+- MySQL → `mysql-specialist`
 - Data pipelines → `data-engineer`
+- dbt transformations → `dbt-engineer`
+- Apache Airflow → `airflow-engineer`
+- Apache Spark → `spark-engineer`
 - Machine learning → `ml-engineer` or `machine-learning-engineer`
+- Computer vision → `computer-vision-engineer`
+- RAG systems → `rag-specialist`
+- LangChain/LangGraph → `langchain-developer`
 - MLOps → `mlops-engineer`
 - LLM/AI systems → `llm-architect` or `ai-engineer`
 - Data analysis → `data-analyst` subagent or `/data-analyst` command
 - Data science → `data-scientist`
 - NLP → `nlp-engineer`
 - Prompt engineering → `prompt-engineer`
+- Dashboards/analytics → `dashboard-architect`
+- Business intelligence → `business-intelligence-engineer`
+- Real-time analytics → `real-time-analytics-engineer`
 
 ### 6. Frontend & UI
 
@@ -214,14 +253,41 @@ When writing, debugging, or reviewing code in a specific language:
 
 ### 10. Specialized Domains
 - Blockchain/Web3 → `blockchain-developer`
+- Solidity auditing → `solidity-auditor`
+- DeFi protocols → `defi-developer`
+- Web3 frontend/dApps → `web3-frontend-developer`
+- Solana development → `solana-developer`
+- Zero-knowledge proofs → `zk-engineer`
+- Tokenomics design → `tokenomics-designer`
+- Web3 security research → `web3-security-researcher`
 - IoT → `iot-engineer`
 - Game development → `game-developer`
 - Fintech → `fintech-engineer`
 - SEO → `seo-specialist`
 - Mobile apps → `mobile-developer`
+- iOS native → `ios-developer`
+- Android native → `android-developer`
+- React Native → `react-native-expert`
 - Fullstack → `fullstack-developer`
 - Backend → `backend-developer`
 - Incident response → `incident-responder` or `devops-incident-responder`
+- CTO/tech strategy → `cto-advisor`
+- Startup tech → `startup-advisor`
+- CMS/headless CMS → `cms-specialist`
+- PWA → `pwa-specialist`
+- Web Components → `web-components-specialist`
+
+### 11. Rust Specializations
+- Rust web (Axum/Actix) → `rust-web-developer`
+- Rust systems/kernel → `rust-systems-programmer`
+- Rust embedded → `rust-embedded-developer`
+- Rust WASM → `rust-wasm-developer`
+- Rust blockchain → `rust-blockchain-developer`
+
+### 12. Payments
+- Payment architecture → `payment-architect`
+- Stripe integration → `stripe-specialist`
+- Crypto payments → `crypto-payments-developer`
 
 ## Orchestrator Skills (8 total, use FIRST when applicable)
 
@@ -294,7 +360,7 @@ The workflow chains defined above now have skill entry points:
 **General** (10): `/code-review`, `/creative-writer`, `/data-analyst`, `/project-manager`, `/research-assistant`, `/system-architect`, `/test-gen`, `/explain`, `/security-scan`, `/perf-audit`
 **UI** (22): `/ui:design-system`, `/ui:design-expert`, `/ui:mobile-design`, `/ui:react-component`, `/ui:css-architecture`, `/ui:user-persona`, `/ui:micro-interactions`, `/ui:mobile-first-layout`, `/ui:aria-accessibility`, `/ui:wireframe`, `/ui:form-patterns`, `/ui:table-patterns`, `/ui:scroll-animations`, `/ui:css-modern-patterns`, `/ui:page-transitions`, `/ui:dashboard-layout`, `/ui:icon-system`, `/ui:multi-theme`, `/ui:og-image`, `/ui:typography-system`, `/ui:color-system`, `/ui:pdf-template`
 
-### Subagents (180+ total, in `~/.claude/agents/`)
+### Subagents (245 total, in `~/.claude/agents/`)
 **Browse**: `/subagent-catalog:list`, `/subagent-catalog:search <query>`, `/subagent-catalog:fetch <name>`
 
 ## Code Generation Guardrails

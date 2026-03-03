@@ -3,6 +3,7 @@
 # Claude Superpower Installer
 # Deploys agents, skills, commands, and config to ~/.claude/
 # Works on: Linux, macOS, Windows (Git Bash/WSL)
+# Handles ALL skills dynamically (no hardcoded list)
 # ============================================================================
 
 set -euo pipefail
@@ -52,6 +53,7 @@ if $NEEDS_BACKUP; then
     warn "  $BACKUP_DIR"
     mkdir -p "$BACKUP_DIR"
     [ -d "$CLAUDE_DIR/agents" ] && cp -r "$CLAUDE_DIR/agents" "$BACKUP_DIR/" 2>/dev/null || true
+    [ -d "$CLAUDE_DIR/skills" ] && cp -r "$CLAUDE_DIR/skills" "$BACKUP_DIR/" 2>/dev/null || true
     [ -f "$CLAUDE_DIR/CLAUDE.md" ] && cp "$CLAUDE_DIR/CLAUDE.md" "$BACKUP_DIR/" 2>/dev/null || true
     log "Backup complete."
 fi
@@ -62,12 +64,14 @@ cp "$SCRIPT_DIR"/agents/*.md "$CLAUDE_DIR/agents/"
 AGENT_COUNT=$(ls "$CLAUDE_DIR/agents/"*.md 2>/dev/null | wc -l)
 log "  Agents installed: $AGENT_COUNT"
 
-# ---- Install Orchestrator Skills (13 skills) ----
-log "Installing 13 orchestrator skills..."
+# ---- Install ALL Skills (dynamic) ----
+log "Installing skills..."
 for skill_dir in "$SCRIPT_DIR"/skills/*/; do
-    skill_name=$(basename "$skill_dir")
-    mkdir -p "$CLAUDE_DIR/skills/$skill_name"
-    cp -r "$skill_dir"* "$CLAUDE_DIR/skills/$skill_name/" 2>/dev/null || true
+    if [ -d "$skill_dir" ]; then
+        skill_name=$(basename "$skill_dir")
+        mkdir -p "$CLAUDE_DIR/skills/$skill_name"
+        cp -r "$skill_dir"* "$CLAUDE_DIR/skills/$skill_name/" 2>/dev/null || true
+    fi
 done
 SKILL_COUNT=$(ls -d "$CLAUDE_DIR/skills/"*/ 2>/dev/null | wc -l)
 log "  Skills installed: $SKILL_COUNT"
@@ -75,48 +79,44 @@ log "  Skills installed: $SKILL_COUNT"
 # ---- Install Slash Commands ----
 log "Installing slash commands..."
 
-# General (10)
+# General (root level)
 cp "$SCRIPT_DIR"/commands/general/*.md "$CLAUDE_DIR/commands/" 2>/dev/null || true
 GEN_COUNT=$(ls "$SCRIPT_DIR"/commands/general/*.md 2>/dev/null | wc -l)
 log "  General commands: $GEN_COUNT"
 
-# UI (9)
+# UI
 cp "$SCRIPT_DIR"/commands/ui/*.md "$CLAUDE_DIR/commands/ui/" 2>/dev/null || true
 UI_COUNT=$(ls "$SCRIPT_DIR"/commands/ui/*.md 2>/dev/null | wc -l)
 log "  UI commands: $UI_COUNT"
 
-# GSD (31)
+# GSD
 if [ -d "$SCRIPT_DIR/commands/gsd" ]; then
     cp "$SCRIPT_DIR"/commands/gsd/*.md "$CLAUDE_DIR/commands/gsd/" 2>/dev/null || true
     GSD_COUNT=$(ls "$SCRIPT_DIR"/commands/gsd/*.md 2>/dev/null | wc -l)
     log "  GSD commands: $GSD_COUNT"
+else
+    GSD_COUNT=0
 fi
 
-# Subagent Catalog (5)
+# Subagent Catalog
 if [ -d "$SCRIPT_DIR/commands/subagent-catalog" ]; then
     cp "$SCRIPT_DIR"/commands/subagent-catalog/*.md "$CLAUDE_DIR/commands/subagent-catalog/" 2>/dev/null || true
+    cp "$SCRIPT_DIR"/commands/subagent-catalog/config.sh "$CLAUDE_DIR/commands/subagent-catalog/" 2>/dev/null || true
     CAT_COUNT=$(ls "$SCRIPT_DIR"/commands/subagent-catalog/*.md 2>/dev/null | wc -l)
     log "  Catalog commands: $CAT_COUNT"
+else
+    CAT_COUNT=0
 fi
 
 # ---- Install CLAUDE.md (master config) ----
 log "Installing CLAUDE.md (master routing config)..."
-if [ -f "$CLAUDE_DIR/CLAUDE.md" ]; then
-    # Merge: append our config if it doesn't already contain our marker
-    if ! grep -q "## Orchestrator Skills" "$CLAUDE_DIR/CLAUDE.md" 2>/dev/null; then
-        warn "Existing CLAUDE.md found without orchestrator skills section."
-        warn "Replacing with full config (backup saved)."
-        cp "$SCRIPT_DIR/config/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
-    else
-        info "CLAUDE.md already contains orchestrator skills. Updating..."
-        cp "$SCRIPT_DIR/config/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
-    fi
-else
-    cp "$SCRIPT_DIR/config/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
-fi
+cp "$SCRIPT_DIR/config/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
 log "  CLAUDE.md installed."
 
 # ---- Summary ----
+CMD_TOTAL=$((GEN_COUNT + UI_COUNT + GSD_COUNT + CAT_COUNT))
+GRAND_TOTAL=$((AGENT_COUNT + SKILL_COUNT + CMD_TOTAL + 1))
+
 echo ""
 echo "================================================"
 echo -e "  ${GREEN}Installation Complete!${NC}"
@@ -124,23 +124,27 @@ echo "================================================"
 echo ""
 log "Installed to: $CLAUDE_DIR"
 echo ""
-echo "  Components:"
-echo "    Agents:              $AGENT_COUNT (includes 7 guardrail + 18 UI/UX specialist)"
-echo "    Orchestrator Skills: $SKILL_COUNT (8 workflow + 5 power tools)"
-echo "    Slash Commands:      32 (10 general + 22 UI)"
-echo "    GSD Commands:        31"
-echo "    Catalog Commands:    5"
-echo "    Master Config:       CLAUDE.md (with code generation guardrails)"
+echo "  Components ($GRAND_TOTAL total):"
+echo "    Agents:           $AGENT_COUNT"
+echo "    Skills:           $SKILL_COUNT"
+echo "    Slash Commands:   $CMD_TOTAL"
+echo "      General:        $GEN_COUNT"
+echo "      UI:             $UI_COUNT"
+echo "      GSD:            $GSD_COUNT"
+echo "      Catalog:        $CAT_COUNT"
+echo "    Master Config:    CLAUDE.md"
 echo ""
-echo "  Works automatically in:"
+echo "  Auto-works in:"
 echo "    - Claude Code CLI (terminal)"
 echo "    - Claude Code in VS Code"
 echo "    - Claude Code in JetBrains"
 echo ""
-echo "  For claude.ai web, paste contents of:"
-echo "    config/claude-web-instructions.md"
-echo "    into a Claude Project's custom instructions."
+echo "  For other environments:"
+echo "    claude.ai web:    Paste config/claude-web-instructions.md"
+echo "                      into Project -> Custom Instructions"
 echo ""
-echo "  For Claude Desktop, see:"
-echo "    config/claude-desktop-setup.md"
+echo "    Claude Desktop:   See config/claude-desktop-setup.md"
+echo ""
+echo "    API/SDK:          Use config/claude-api-system-prompt.md"
+echo "                      as your system message"
 echo ""

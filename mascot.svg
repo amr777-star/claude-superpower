@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+  <defs>
+    <!-- Wing gradient -->
+    <radialGradient id="wingGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e0f2fe" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#bae6fd" stop-opacity="0.4"/>
+    </radialGradient>
+    <!-- Body gradient -->
+    <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <!-- Head gradient -->
+    <linearGradient id="headGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fcd34d"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <!-- Stripe gradient -->
+    <linearGradient id="stripeGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#292524"/>
+      <stop offset="50%" stop-color="#1c1917"/>
+      <stop offset="100%" stop-color="#292524"/>
+    </linearGradient>
+    <!-- Cheek blush -->
+    <radialGradient id="blush" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fb923c" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#fb923c" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Shadow -->
+    <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Antenna glow -->
+    <radialGradient id="antennaGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Ground shadow -->
+  <ellipse cx="200" cy="470" rx="100" ry="15" fill="url(#shadow)"/>
+
+  <!-- Left wing (back) -->
+  <ellipse cx="120" cy="220" rx="65" ry="90" fill="url(#wingGlow)" stroke="#93c5fd" stroke-width="1.5" opacity="0.7" transform="rotate(-15, 120, 220)">
+    <animateTransform attributeName="transform" type="rotate" values="-15,120,220; -5,120,220; -15,120,220" dur="0.8s" repeatCount="indefinite"/>
+  </ellipse>
+  <!-- Wing vein lines (left) -->
+  <line x1="120" y1="150" x2="110" y2="290" stroke="#93c5fd" stroke-width="0.8" opacity="0.4">
+    <animateTransform attributeName="transform" type="rotate" values="-15,120,220; -5,120,220; -15,120,220" dur="0.8s" repeatCount="indefinite"/>
+  </line>
+
+  <!-- Right wing (back) -->
+  <ellipse cx="280" cy="220" rx="65" ry="90" fill="url(#wingGlow)" stroke="#93c5fd" stroke-width="1.5" opacity="0.7" transform="rotate(15, 280, 220)">
+    <animateTransform attributeName="transform" type="rotate" values="15,280,220; 5,280,220; 15,280,220" dur="0.8s" repeatCount="indefinite"/>
+  </ellipse>
+  <!-- Wing vein lines (right) -->
+  <line x1="280" y1="150" x2="290" y2="290" stroke="#93c5fd" stroke-width="0.8" opacity="0.4">
+    <animateTransform attributeName="transform" type="rotate" values="15,280,220; 5,280,220; 15,280,220" dur="0.8s" repeatCount="indefinite"/>
+  </line>
+
+  <!-- Body -->
+  <ellipse cx="200" cy="310" rx="75" ry="95" fill="url(#bodyGrad)"/>
+
+  <!-- Body stripes -->
+  <ellipse cx="200" cy="270" rx="70" ry="12" fill="url(#stripeGrad)" rx="70"/>
+  <ellipse cx="200" cy="310" rx="73" ry="12" fill="url(#stripeGrad)"/>
+  <ellipse cx="200" cy="350" rx="70" ry="12" fill="url(#stripeGrad)"/>
+
+  <!-- Stinger -->
+  <path d="M200,400 Q200,440 200,450 Q203,440 210,430 Q200,440 190,430 Q197,440 200,450Z" fill="#292524"/>
+
+  <!-- Head -->
+  <circle cx="200" cy="180" r="72" fill="url(#headGrad)"/>
+
+  <!-- Antennae -->
+  <path d="M175,115 Q165,70 150,55" fill="none" stroke="#292524" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="148" cy="52" r="8" fill="url(#antennaGlow)" stroke="#292524" stroke-width="2"/>
+
+  <path d="M225,115 Q235,70 250,55" fill="none" stroke="#292524" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="252" cy="52" r="8" fill="url(#antennaGlow)" stroke="#292524" stroke-width="2"/>
+
+  <!-- Eyes - white -->
+  <ellipse cx="172" cy="175" rx="22" ry="25" fill="white"/>
+  <ellipse cx="228" cy="175" rx="22" ry="25" fill="white"/>
+
+  <!-- Eyes - iris -->
+  <ellipse cx="175" cy="178" rx="13" ry="15" fill="#1c1917"/>
+  <ellipse cx="231" cy="178" rx="13" ry="15" fill="#1c1917"/>
+
+  <!-- Eyes - pupil highlight -->
+  <circle cx="180" cy="172" r="5" fill="white" opacity="0.9"/>
+  <circle cx="236" cy="172" r="5" fill="white" opacity="0.9"/>
+  <circle cx="172" cy="182" r="2.5" fill="white" opacity="0.5"/>
+  <circle cx="228" cy="182" r="2.5" fill="white" opacity="0.5"/>
+
+  <!-- Cheek blush -->
+  <circle cx="145" cy="200" r="18" fill="url(#blush)"/>
+  <circle cx="255" cy="200" r="18" fill="url(#blush)"/>
+
+  <!-- Mouth - cute smile -->
+  <path d="M185,205 Q200,222 215,205" fill="none" stroke="#292524" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Arms/legs (tiny cute ones) -->
+  <!-- Left arm -->
+  <path d="M130,280 Q105,290 100,310" fill="none" stroke="#f59e0b" stroke-width="12" stroke-linecap="round"/>
+  <!-- Right arm -->
+  <path d="M270,280 Q295,290 300,310" fill="none" stroke="#f59e0b" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- Left leg -->
+  <path d="M165,395 Q160,420 155,440" fill="none" stroke="#f59e0b" stroke-width="11" stroke-linecap="round"/>
+  <!-- Right leg -->
+  <path d="M235,395 Q240,420 245,440" fill="none" stroke="#f59e0b" stroke-width="11" stroke-linecap="round"/>
+
+  <!-- Feet -->
+  <ellipse cx="152" cy="445" rx="14" ry="8" fill="#292524"/>
+  <ellipse cx="248" cy="445" rx="14" ry="8" fill="#292524"/>
+
+  <!-- Hands -->
+  <circle cx="98" cy="314" r="10" fill="#fbbf24" stroke="#f59e0b" stroke-width="1"/>
+  <circle cx="302" cy="314" r="10" fill="#fbbf24" stroke="#f59e0b" stroke-width="1"/>
+
+  <!-- Floating hover animation for the whole bee -->
+  <animateTransform attributeName="transform" type="translate" values="0,0; 0,-8; 0,0" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"/>
+</svg>
