@@ -2,7 +2,7 @@
 
 ## Agent System Overview
 
-You have **245 specialized subagents** at `~/.claude/agents/` and **32 slash command agents** at `~/.claude/commands/`. You MUST proactively delegate work to the most appropriate agent. Do NOT do everything yourself when a specialist exists.
+You have **298 specialized subagents** at `~/.claude/agents/` and **32 slash command agents** at `~/.claude/commands/`. You MUST proactively delegate work to the most appropriate agent. Do NOT do everything yourself when a specialist exists.
 
 ## Slash Command vs Subagent Decision
 
@@ -69,6 +69,11 @@ When writing, debugging, or reviewing code in a specific language:
 - Scala → `scala-specialist`
 - R → `r-analyst`
 - Dart → `dart-specialist`
+- Haskell → `haskell-pro`
+- Lua → `lua-specialist`
+- Clojure → `clojure-developer`
+- Zig → `zig-engineer`
+- Julia → `julia-engineer`
 
 ### 2. Framework-Specific Work
 - React → `react-specialist`
@@ -91,6 +96,15 @@ When writing, debugging, or reviewing code in a specific language:
 - htmx → `htmx-specialist`
 - React Native → `react-native-expert`
 - Supabase → `supabase-specialist`
+- SolidJS → `solid-developer`
+- Prisma ORM → `prisma-specialist`
+- Drizzle ORM → `drizzle-engineer`
+- tRPC → `trpc-specialist`
+- LangChain/LangGraph → `langchain-developer`
+- Tauri → `tauri-developer`
+- Deno → `deno-developer`
+- Salesforce/Apex → `salesforce-developer`
+- HubSpot → `hubspot-developer`
 
 ### 3. Infrastructure & DevOps
 - Docker/containers → `docker-expert`
@@ -111,6 +125,19 @@ When writing, debugging, or reviewing code in a specific language:
 - DevSecOps → `devsecops-engineer`
 - API gateways → `api-gateway-specialist`
 - Release management → `release-manager`
+- Pulumi IaC → `pulumi-engineer`
+- GitLab CI → `gitlab-ci-specialist`
+- Jenkins → `jenkins-engineer`
+- CircleCI → `circleci-specialist`
+- Bazel builds → `bazel-engineer`
+- Crossplane → `crossplane-engineer`
+- Istio service mesh → `istio-specialist`
+- Consul → `consul-specialist`
+- GitOps/Flux CD → `gitops-engineer`
+- HashiCorp Vault → `vault-specialist`
+- OpenTelemetry → `opentelemetry-engineer`
+- Datadog → `datadog-engineer`
+- Nx monorepo → `nx-specialist`
 
 ### 4. Quality, Security & Validation
 - Code review → `code-reviewer`
@@ -142,6 +169,13 @@ When writing, debugging, or reviewing code in a specific language:
 - Blue team/SOC → `blue-team-analyst`
 - Digital forensics → `forensics-analyst`
 - Identity/IAM security → `identity-security-architect`
+- Supply chain security → `supply-chain-security-engineer`
+- Container security → `container-security-specialist`
+- Zero-trust architecture → `zero-trust-architect`
+- AI safety/guardrails → `ai-safety-engineer`
+- Property-based testing → `property-based-testing-specialist`
+- Mutation testing → `mutation-testing-engineer`
+- API mocking/virtualization → `api-mocking-specialist`
 
 ### 5. Data & AI
 - Database queries/optimization → `sql-pro`, `postgres-pro`, or `database-optimizer`
@@ -164,6 +198,8 @@ When writing, debugging, or reviewing code in a specific language:
 - Dashboards/analytics → `dashboard-architect`
 - Business intelligence → `business-intelligence-engineer`
 - Real-time analytics → `real-time-analytics-engineer`
+- Vector databases → `vector-database-engineer`
+- Autonomous AI agents → `autonomous-agent-engineer`
 
 ### 6. Frontend & UI
 
@@ -276,6 +312,15 @@ When writing, debugging, or reviewing code in a specific language:
 - CMS/headless CMS → `cms-specialist`
 - PWA → `pwa-specialist`
 - Web Components → `web-components-specialist`
+- Edge computing → `edge-computing-engineer`
+- WebAssembly → `webassembly-engineer`
+- Voice interfaces → `voice-interface-developer`
+- AR/VR/XR → `ar-vr-developer`
+- Digital twins → `digital-twin-engineer`
+- Computer use/GUI agents → `computer-use-engineer`
+- Growth engineering → `growth-engineer`
+- Pricing strategy → `pricing-strategist`
+- Supabase Realtime → `supabase-realtime-engineer`
 
 ### 11. Rust Specializations
 - Rust web (Axum/Actix) → `rust-web-developer`
@@ -288,6 +333,16 @@ When writing, debugging, or reviewing code in a specific language:
 - Payment architecture → `payment-architect`
 - Stripe integration → `stripe-specialist`
 - Crypto payments → `crypto-payments-developer`
+
+### 13. Integrations & Communication
+- Microsoft Teams → `microsoft-teams-developer`
+- Twilio (SMS/Voice/Video) → `twilio-specialist`
+- Zapier automations → `zapier-specialist`
+- Slack apps → `slack-expert`
+
+### 14. Orchestration
+- Maestro (memory-enhanced brain) → `maestro` (opus model)
+- Maestro sub-agents → `maestro-researcher`, `maestro-planner`, `maestro-executor`, `maestro-reviewer`, `maestro-memory-manager`
 
 ## Orchestrator Skills (8 total, use FIRST when applicable)
 
@@ -360,7 +415,7 @@ The workflow chains defined above now have skill entry points:
 **General** (10): `/code-review`, `/creative-writer`, `/data-analyst`, `/project-manager`, `/research-assistant`, `/system-architect`, `/test-gen`, `/explain`, `/security-scan`, `/perf-audit`
 **UI** (22): `/ui:design-system`, `/ui:design-expert`, `/ui:mobile-design`, `/ui:react-component`, `/ui:css-architecture`, `/ui:user-persona`, `/ui:micro-interactions`, `/ui:mobile-first-layout`, `/ui:aria-accessibility`, `/ui:wireframe`, `/ui:form-patterns`, `/ui:table-patterns`, `/ui:scroll-animations`, `/ui:css-modern-patterns`, `/ui:page-transitions`, `/ui:dashboard-layout`, `/ui:icon-system`, `/ui:multi-theme`, `/ui:og-image`, `/ui:typography-system`, `/ui:color-system`, `/ui:pdf-template`
 
-### Subagents (245 total, in `~/.claude/agents/`)
+### Subagents (298 total, in `~/.claude/agents/`)
 **Browse**: `/subagent-catalog:list`, `/subagent-catalog:search <query>`, `/subagent-catalog:fetch <name>`
 
 ## Code Generation Guardrails
