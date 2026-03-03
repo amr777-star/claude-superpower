@@ -1,19 +1,27 @@
 # Claude Superpower
 
-> Turn Claude into a self-routing AI coding army — 185 specialist agents, 13 orchestrator skills, 68 slash commands, code generation guardrails — auto-triggering across **every** Claude environment.
+> Turn Claude into a self-routing AI coding army — 298 specialist agents, 13 orchestrator skills, 76 slash commands, code generation guardrails — auto-triggering across **every** Claude environment.
 
 ## What's Inside
 
 | Component | Count | Description |
 |-----------|-------|-------------|
-| **Subagents** | 185 | Language, framework, DevOps, security, data, guardrail, UI/UX, and domain specialists |
+| **Subagents** | 298 | Language, framework, DevOps, security, data, Web3, UI/UX, and domain specialists |
 | **Orchestrator Skills** | 13 | Workflow chains that sequence multiple agents automatically |
-| **Slash Commands** | 32 | Quick generators for reviews, designs, plans, tests, UI patterns, and analysis |
-| **GSD Commands** | 31 | Project management workflow (Get Shit Done system) |
-| **Catalog Commands** | 5 | Agent discovery and browsing |
+| **Slash Commands** | 76 | Quick generators for reviews, designs, plans, tests, UI patterns, business ops, and analysis |
 | **Guardrail Rules** | 9 | CLAUDE.md rules preventing common AI coding mistakes |
-| **Master Config** | 1 | CLAUDE.md with auto-routing rules + guardrails |
+| **Master Config** | 1 | CLAUDE.md with auto-routing rules across 14 categories + guardrails |
 | **Web Instructions** | 1 | Portable project instructions for claude.ai |
+
+### Slash Command Breakdown
+
+| Category | Count | Examples |
+|----------|-------|---------|
+| **General** | 10 | `/code-review`, `/test-gen`, `/explain`, `/security-scan`, `/perf-audit` |
+| **Business** | 8 | `/business-plan`, `/financial-modeler`, `/pitch-deck`, `/strategy-analyst`, `/fundraising-advisor`, `/market-sizing`, `/cfo-dashboard`, `/ops-planner` |
+| **UI** | 22 | `/ui:design-system`, `/ui:react-component`, `/ui:mobile-design`, `/ui:wireframe`, `/ui:form-patterns` |
+| **GSD** | 31 | Project management workflow (Get Shit Done system) |
+| **Catalog** | 5 | Agent discovery and browsing |
 
 ## Setup Guide
 
@@ -28,7 +36,7 @@
 
 ### 1. Claude Code (CLI / VS Code / JetBrains) — Full Power
 
-This is the primary environment. All 167 agents, 13 skills, and 55 commands work here with full auto-triggering.
+This is the primary environment. All 298 agents, 13 skills, and 76 commands work here with full auto-triggering.
 
 **On Bash (Linux / macOS / Git Bash on Windows):**
 ```bash
@@ -45,9 +53,9 @@ cd claude-superpower
 ```
 
 **What happens:**
-- Creates `~/.claude/agents/` with 167 specialist subagents (including 7 guardrail agents)
+- Creates `~/.claude/agents/` with 298 specialist subagents (including 7 guardrail agents)
 - Creates `~/.claude/skills/` with 13 orchestrator skills
-- Creates `~/.claude/commands/` with 55 slash commands
+- Creates `~/.claude/commands/` with 76 slash commands (general, business, UI, GSD, catalog)
 - Installs `~/.claude/CLAUDE.md` master routing config with code generation guardrails
 - Backs up any existing setup before overwriting
 
@@ -55,7 +63,7 @@ cd claude-superpower
 ```bash
 claude  # Open Claude Code
 # Type /workflow-runner — should autocomplete
-# Type /deep-review — should autocomplete
+# Type /business-plan — should autocomplete
 # Ask "review this code" — auto-routes to 3 parallel reviewers
 ```
 
@@ -157,8 +165,10 @@ const response = await client.messages.create({
 | "Review my changes" | Runs `/deep-review` → 3 parallel reviewers (quality + security + perf) |
 | "Commit these changes" | Runs `/smart-commit` → pre-commit check → message gen → git commit |
 | "Scaffold a Next.js app" | Runs `/scaffold next-app` → architecture → design → code gen |
-| "What's the impact of this change?" | Runs `/impact-check` → blast-radius analysis in forked context |
-| "Deploy readiness check" | Runs `/workflow-runner deploy` → quality-gate + security + impact |
+| "Create a pitch deck for Series A" | Runs `/pitch-deck` → Sequoia 12-slide framework |
+| "Build a financial model" | Runs `/financial-modeler` → 3-statement, DCF, SaaS metrics |
+| "Size the market for my startup" | Runs `/market-sizing` → TAM/SAM/SOM dual method |
+| "Write a business plan" | Runs `/business-plan` → 12-section comprehensive plan |
 | Any Python code task | Auto-routes to `python-pro` agent |
 | Any Docker question | Auto-routes to `docker-expert` agent |
 | Any security concern | Auto-routes to `security-auditor` or `security-engineer` agent |
@@ -184,7 +194,7 @@ const response = await client.messages.create({
 | **scaffold** | `/scaffold <type> <desc>` | Architecture + design + code gen for new projects |
 | **impact-check** | `/impact-check` | Blast-radius analysis before changes (forked context) |
 
-### Power Tool Skills (new)
+### Power Tool Skills
 | Skill | Command | What It Does |
 |-------|---------|-------------|
 | **gen-tests** | `/gen-tests [files]` | Convention-aware test generation → quality audit |
@@ -209,50 +219,77 @@ Pre-Deployment:    quality-gate + security-auditor + change-impact-analyzer (par
 Debug & Fix:       debugger → language-specialist → output-validator → self-corrector → test-automator
 ```
 
-## 167 Specialist Agents
+---
+
+## Business Operations Skills (8)
+
+Comprehensive slash commands for startup and business operations — each built with deep research and real-world frameworks.
+
+| Command | What It Generates |
+|---------|------------------|
+| `/business-plan` | 12-section business plan (market analysis, financials, GTM, risk assessment). Full/Lean/One-pager/Notion memo formats |
+| `/financial-modeler` | 3-statement model, DCF, LBO, M&A, SaaS metrics, cap table, scenario analysis — with exact formulas and sensitivity tables |
+| `/pitch-deck` | Sequoia 12-slide, YC 10-slide, Kawasaki 10/20/30 investor decks. Also: sales decks, board decks, partnership proposals. 5 storytelling frameworks (AIDA, SCQA, PAS, Minto Pyramid, Hero's Journey) |
+| `/strategy-analyst` | 12 strategic frameworks: SWOT/TOWS, Porter's Five Forces, PESTEL, BCG Matrix, Ansoff, Blue Ocean ERRC, JTBD, TAM/SAM/SOM, OKRs, Value Chain, MECE Issue Trees, Competitive Positioning |
+| `/fundraising-advisor` | SAFE/convertible note mechanics, term sheet analysis (economic + control terms + red flags), cap table waterfall, due diligence data room structure, investor update templates, valuation benchmarks by stage |
+| `/market-sizing` | TAM/SAM/SOM dual-method (top-down + bottom-up), customer segmentation with ICP, competitive intelligence matrices, pricing research (Van Westendorp, Gabor-Granger), market entry assessment |
+| `/cfo-dashboard` | 3-tier KPI architecture (North Star → Operational → Functional), monthly P&L package, 13-week rolling cash flow forecast, variance analysis framework, board financial packages, SaaS metrics dashboard |
+| `/ops-planner` | OKR cascading with alignment check, capacity planning (engineering/sales/support models), DMAIC process optimization, workforce planning & comp frameworks, vendor evaluation with TCO, meeting operating system, risk register |
+
+---
+
+## 298 Specialist Agents
 
 <details>
 <summary>Click to see all agents by category</summary>
 
-### Language Specialists (14)
-`typescript-pro` `javascript-pro` `python-pro` `rust-engineer` `golang-pro` `cpp-pro` `csharp-developer` `java-architect` `php-pro` `swift-expert` `kotlin-specialist` `sql-pro` `elixir-expert` `dotnet-core-expert`
+### Language Specialists (23)
+`typescript-pro` `javascript-pro` `python-pro` `rust-engineer` `golang-pro` `cpp-pro` `csharp-developer` `java-architect` `php-pro` `swift-expert` `kotlin-specialist` `sql-pro` `elixir-expert` `dotnet-core-expert` `ruby-pro` `scala-specialist` `r-analyst` `dart-specialist` `haskell-pro` `lua-specialist` `clojure-developer` `zig-engineer` `julia-engineer`
 
-### Framework Specialists (12)
-`react-specialist` `nextjs-developer` `vue-expert` `angular-architect` `django-developer` `laravel-specialist` `rails-expert` `spring-boot-engineer` `flutter-expert` `electron-pro` `nestjs-developer` `fastapi-specialist` `svelte-developer`
+### Framework Specialists (29)
+`react-specialist` `nextjs-developer` `vue-expert` `angular-architect` `django-developer` `laravel-specialist` `rails-expert` `spring-boot-engineer` `flutter-expert` `electron-pro` `nestjs-developer` `fastapi-specialist` `svelte-developer` `remix-developer` `astro-developer` `express-specialist` `flask-specialist` `htmx-specialist` `react-native-expert` `supabase-specialist` `solid-developer` `prisma-specialist` `drizzle-engineer` `trpc-specialist` `langchain-developer` `tauri-developer` `deno-developer` `salesforce-developer` `hubspot-developer`
 
-### DevOps & Infrastructure (21)
-`docker-expert` `kubernetes-specialist` `terraform-engineer` `terragrunt-expert` `devops-engineer` `deployment-engineer` `cloud-architect` `azure-infra-engineer` `aws-architect` `gcp-architect` `sre-engineer` `network-engineer` `platform-engineer` `windows-infra-admin` `m365-admin` `it-ops-orchestrator` `devops-incident-responder` `helm-specialist` `ansible-specialist` `monitoring-specialist`
+### DevOps & Infrastructure (31)
+`docker-expert` `kubernetes-specialist` `terraform-engineer` `terragrunt-expert` `devops-engineer` `deployment-engineer` `cloud-architect` `azure-infra-engineer` `aws-architect` `gcp-architect` `sre-engineer` `network-engineer` `platform-engineer` `windows-infra-admin` `m365-admin` `it-ops-orchestrator` `devops-incident-responder` `helm-specialist` `ansible-specialist` `monitoring-specialist` `serverless-architect` `cloudflare-specialist` `github-actions-specialist` `argocd-specialist` `devsecops-engineer` `api-gateway-specialist` `release-manager` `pulumi-engineer` `gitlab-ci-specialist` `jenkins-engineer` `circleci-specialist` `bazel-engineer` `crossplane-engineer` `istio-specialist` `consul-specialist` `gitops-engineer` `vault-specialist` `opentelemetry-engineer` `datadog-engineer` `nx-specialist`
 
-### Quality & Security (15)
-`code-reviewer` `security-auditor` `security-engineer` `penetration-tester` `compliance-auditor` `performance-engineer` `qa-expert` `test-automator` `accessibility-tester` `architect-reviewer` `chaos-engineer` `output-validator` `self-corrector` `quality-gate` `pre-commit-checker`
+### Quality, Security & Validation (37)
+`code-reviewer` `security-auditor` `security-engineer` `penetration-tester` `compliance-auditor` `performance-engineer` `qa-expert` `test-automator` `accessibility-tester` `architect-reviewer` `chaos-engineer` `output-validator` `self-corrector` `quality-gate` `pre-commit-checker` `change-impact-analyzer` `logic-verifier` `security-lint` `convention-scanner` `import-verifier` `complexity-checker` `error-handling-checker` `test-quality-auditor` `load-test-engineer` `contract-test-specialist` `unit-test-specialist` `threat-hunter` `malware-analyst` `cloud-security-engineer` `appsec-engineer` `red-team-operator` `blue-team-analyst` `forensics-analyst` `identity-security-architect` `supply-chain-security-engineer` `container-security-specialist` `zero-trust-architect` `ai-safety-engineer` `property-based-testing-specialist` `mutation-testing-engineer` `api-mocking-specialist`
 
-### Guardrail Agents (7) — NEW
-`logic-verifier` `security-lint` `convention-scanner` `import-verifier` `complexity-checker` `error-handling-checker` `test-quality-auditor`
+### Data & AI (22)
+`sql-pro` `postgres-pro` `mongodb-specialist` `redis-specialist` `elasticsearch-specialist` `database-optimizer` `database-administrator` `mysql-specialist` `data-engineer` `data-scientist` `ml-engineer` `mlops-engineer` `llm-architect` `ai-engineer` `nlp-engineer` `dbt-engineer` `airflow-engineer` `spark-engineer` `computer-vision-engineer` `rag-specialist` `dashboard-architect` `business-intelligence-engineer` `real-time-analytics-engineer` `vector-database-engineer` `autonomous-agent-engineer`
 
-> These lightweight agents auto-check generated code for edge cases, OWASP vulnerabilities, project conventions, import validity, over-engineering, error handling gaps, and test quality.
-
-### Data & AI (14)
-`sql-pro` `postgres-pro` `mongodb-specialist` `redis-specialist` `elasticsearch-specialist` `database-optimizer` `database-administrator` `data-engineer` `data-scientist` `ml-engineer` `mlops-engineer` `llm-architect` `ai-engineer` `nlp-engineer`
-
-### Architecture & API (7)
-`api-designer` `api-documenter` `graphql-architect` `microservices-architect` `mcp-developer` `websocket-engineer` `kafka-architect`
-
-### UI/UX & Animation Specialists (18) — NEW
+### UI/UX & Animation (18)
 `framer-motion-expert` `gsap-specialist` `svg-engineer` `tailwind-expert` `shadcn-ui-specialist` `dataviz-engineer` `storybook-specialist` `frontend-performance-specialist` `design-token-engineer` `css-in-js-specialist` `design-system-architect` `threejs-developer` `email-template-developer` `i18n-specialist` `lottie-rive-specialist` `visual-regression-tester` `design-reference` `ui-animation-library`
-
-> Animation (Framer Motion, GSAP, Lottie/Rive), CSS (Tailwind v4, CSS-in-JS), component libraries (shadcn/ui, Storybook), data viz (D3, Recharts), design intelligence (2025-2026 trends from Dribbble/Awwwards), performance (Core Web Vitals), and more.
 
 ### Frontend & UX (3)
 `frontend-developer` `ui-designer` `ux-researcher`
 
+### Architecture & API (7)
+`api-designer` `api-documenter` `graphql-architect` `microservices-architect` `mcp-developer` `websocket-engineer` `kafka-architect`
+
+### Business & Product (14)
+`business-analyst` `product-manager` `scrum-master` `sales-engineer` `market-researcher` `competitive-analyst` `content-marketer` `seo-specialist` `technical-writer` `prompt-engineer` `research-analyst` `trend-analyst` `growth-engineer` `pricing-strategist`
+
 ### Developer Tooling (12)
 `build-engineer` `cli-developer` `dependency-manager` `documentation-engineer` `dx-optimizer` `git-workflow-manager` `legacy-modernizer` `refactoring-specialist` `powershell-module-architect` `powershell-ui-architect` `powershell-7-expert` `powershell-5.1-expert`
 
-### Business & Product (12)
-`business-analyst` `product-manager` `scrum-master` `sales-engineer` `market-researcher` `competitive-analyst` `content-marketer` `seo-specialist` `technical-writer` `prompt-engineer` `research-analyst` `trend-analyst`
+### Web3 & Blockchain (8)
+`blockchain-developer` `solidity-auditor` `defi-developer` `web3-frontend-developer` `solana-developer` `zk-engineer` `tokenomics-designer` `web3-security-researcher`
 
-### Specialized Domains (12)
-`blockchain-developer` `fintech-engineer` `game-developer` `iot-engineer` `embedded-systems` `mobile-developer` `fullstack-developer` `backend-developer` `incident-responder` `search-specialist` `wordpress-master` `oauth-specialist` `e2e-test-specialist`
+### Rust Specializations (5)
+`rust-web-developer` `rust-systems-programmer` `rust-embedded-developer` `rust-wasm-developer` `rust-blockchain-developer`
+
+### Payments (3)
+`payment-architect` `stripe-specialist` `crypto-payments-developer`
+
+### Integrations (5)
+`microsoft-teams-developer` `twilio-specialist` `zapier-specialist` `hubspot-developer` `supabase-realtime-engineer`
+
+### Specialized Domains (30+)
+`fintech-engineer` `game-developer` `iot-engineer` `embedded-systems` `mobile-developer` `fullstack-developer` `backend-developer` `incident-responder` `search-specialist` `wordpress-master` `oauth-specialist` `e2e-test-specialist` `ios-developer` `android-developer` `cto-advisor` `startup-advisor` `cms-specialist` `pwa-specialist` `web-components-specialist` `edge-computing-engineer` `webassembly-engineer` `voice-interface-developer` `ar-vr-developer` `digital-twin-engineer` `computer-use-engineer`
+
+### Orchestration (6)
+`maestro` (opus-powered brain) `maestro-researcher` `maestro-planner` `maestro-executor` `maestro-reviewer` `maestro-memory-manager`
 
 </details>
 
@@ -283,12 +320,12 @@ bash install.sh    # Deploy to ~/.claude/
 
 ```
 claude-superpower/
-├── agents/              # 167 specialist subagent prompts (.md)
-│   ├── [language]-pro.md        # 14 language specialists
-│   ├── [framework]-*.md         # 12 framework specialists
-│   ├── [infra]-*.md             # 21 DevOps/infrastructure agents
-│   ├── logic-verifier.md        # 7 guardrail agents (NEW)
-│   ├── aws-architect.md         # 14 new specialist agents
+├── agents/              # 298 specialist subagent prompts (.md)
+│   ├── [language]-pro.md        # 23 language specialists
+│   ├── [framework]-*.md         # 29 framework specialists
+│   ├── [infra]-*.md             # 31+ DevOps/infrastructure agents
+│   ├── logic-verifier.md        # 7 guardrail agents
+│   ├── maestro.md               # 6 orchestration agents
 │   └── ...
 ├── skills/              # 13 orchestrator skill directories
 │   ├── workflow-runner/   # + references/chains.md
@@ -299,20 +336,21 @@ claude-superpower/
 │   ├── agent-guide/       # user-invocable: false (background)
 │   ├── scaffold/          # + references/templates.md
 │   ├── impact-check/      # context: fork
-│   ├── gen-tests/         # NEW: test generation
-│   ├── refactor/          # NEW: structured refactoring
-│   ├── migrate/           # NEW: migration workflows
-│   ├── doc-gen/           # NEW: documentation generation
-│   └── dep-audit/         # NEW: dependency audit (context: fork)
+│   ├── gen-tests/         # test generation
+│   ├── refactor/          # structured refactoring
+│   ├── migrate/           # migration workflows
+│   ├── doc-gen/           # documentation generation
+│   └── dep-audit/         # dependency audit (context: fork)
 ├── commands/
-│   ├── general/           # 10: code-review, test-gen, explain, security-scan, etc.
-│   ├── ui/                # 9: design-system, react-component, mobile-design, etc.
+│   ├── general/           # 18: code-review, test-gen, business-plan, pitch-deck, etc.
+│   ├── ui/                # 22: design-system, react-component, mobile-design, etc.
 │   ├── gsd/               # 31: project management commands
 │   └── subagent-catalog/  # 5: list, search, fetch, invalidate
 ├── config/
 │   ├── CLAUDE.md                    # Master auto-routing config + guardrails
 │   ├── claude-web-instructions.md   # For claude.ai Projects
 │   └── claude-desktop-setup.md      # Desktop app guide
+├── CLAUDE.md            # Also at repo root for reference
 ├── install.sh           # Bash installer (Linux/Mac/Git Bash)
 ├── install.ps1          # PowerShell installer (Windows)
 ├── sync.sh              # Sync live changes → repo
