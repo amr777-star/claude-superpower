@@ -1,6 +1,6 @@
 # Claude Superpower
 
-> Turn Claude into a self-routing AI coding army — 298 specialist agents, 13 orchestrator skills, 76 slash commands, code generation guardrails — auto-triggering across **every** Claude environment.
+> Turn Claude into a self-routing AI coding army — 298 specialist agents, 13 orchestrator skills, 87 slash commands, code generation guardrails — auto-triggering across **every** Claude environment.
 
 ## What's Inside
 
@@ -8,7 +8,7 @@
 |-----------|-------|-------------|
 | **Subagents** | 298 | Language, framework, DevOps, security, data, Web3, UI/UX, and domain specialists |
 | **Orchestrator Skills** | 13 | Workflow chains that sequence multiple agents automatically |
-| **Slash Commands** | 76 | Quick generators for reviews, designs, plans, tests, UI patterns, business ops, and analysis |
+| **Slash Commands** | 87 | Quick generators for reviews, designs, plans, tests, UI patterns, business ops, and analysis |
 | **Guardrail Rules** | 9 | CLAUDE.md rules preventing common AI coding mistakes |
 | **Master Config** | 1 | CLAUDE.md with auto-routing rules across 14 categories + guardrails |
 | **Web Instructions** | 1 | Portable project instructions for claude.ai |
@@ -18,7 +18,7 @@
 | Category | Count | Examples |
 |----------|-------|---------|
 | **General** | 10 | `/code-review`, `/test-gen`, `/explain`, `/security-scan`, `/perf-audit` |
-| **Business** | 8 | `/business-plan`, `/financial-modeler`, `/pitch-deck`, `/strategy-analyst`, `/fundraising-advisor`, `/market-sizing`, `/cfo-dashboard`, `/ops-planner` |
+| **Business** | 19 | `/business-plan`, `/financial-modeler`, `/pitch-deck`, `/strategy-analyst`, `/fundraising-advisor`, `/market-sizing`, `/cfo-dashboard`, `/ops-planner`, `/prd`, `/legal-docs`, `/hr-toolkit`, `/sales-playbook`, `/customer-success`, `/marketing-strategy`, `/exec-comms`, `/growth-analytics`, `/risk-compliance`, `/ma-advisor` |
 | **UI** | 22 | `/ui:design-system`, `/ui:react-component`, `/ui:mobile-design`, `/ui:wireframe`, `/ui:form-patterns` |
 | **GSD** | 31 | Project management workflow (Get Shit Done system) |
 | **Catalog** | 5 | Agent discovery and browsing |
@@ -36,7 +36,7 @@
 
 ### 1. Claude Code (CLI / VS Code / JetBrains) — Full Power
 
-This is the primary environment. All 298 agents, 13 skills, and 76 commands work here with full auto-triggering.
+This is the primary environment. All 298 agents, 13 skills, and 87 commands work here with full auto-triggering.
 
 **On Bash (Linux / macOS / Git Bash on Windows):**
 ```bash
@@ -55,7 +55,7 @@ cd claude-superpower
 **What happens:**
 - Creates `~/.claude/agents/` with 298 specialist subagents (including 7 guardrail agents)
 - Creates `~/.claude/skills/` with 13 orchestrator skills
-- Creates `~/.claude/commands/` with 76 slash commands (general, business, UI, GSD, catalog)
+- Creates `~/.claude/commands/` with 87 slash commands (general, business, UI, GSD, catalog)
 - Installs `~/.claude/CLAUDE.md` master routing config with code generation guardrails
 - Backs up any existing setup before overwriting
 
@@ -169,6 +169,10 @@ const response = await client.messages.create({
 | "Build a financial model" | Runs `/financial-modeler` → 3-statement, DCF, SaaS metrics |
 | "Size the market for my startup" | Runs `/market-sizing` → TAM/SAM/SOM dual method |
 | "Write a business plan" | Runs `/business-plan` → 12-section comprehensive plan |
+| "Draft an NDA" | Runs `/legal-docs` → mutual NDA with Russian/international provisions |
+| "Create a PRD for feature X" | Runs `/prd` → Amazon Working Backwards PR/FAQ format |
+| "Write a press release" | Runs `/exec-comms` → press release + crisis comms framework |
+| "Assess our churn risk" | Runs `/customer-success` → health scoring + churn prevention playbook |
 | Any Python code task | Auto-routes to `python-pro` agent |
 | Any Docker question | Auto-routes to `docker-expert` agent |
 | Any security concern | Auto-routes to `security-auditor` or `security-engineer` agent |
@@ -221,7 +225,7 @@ Debug & Fix:       debugger → language-specialist → output-validator → sel
 
 ---
 
-## Business Operations Skills (8)
+## Business Operations Skills (19)
 
 Comprehensive slash commands for startup and business operations — each built with deep research and real-world frameworks.
 
@@ -229,12 +233,22 @@ Comprehensive slash commands for startup and business operations — each built 
 |---------|------------------|
 | `/business-plan` | 12-section business plan (market analysis, financials, GTM, risk assessment). Full/Lean/One-pager/Notion memo formats |
 | `/financial-modeler` | 3-statement model, DCF, LBO, M&A, SaaS metrics, cap table, scenario analysis — with exact formulas and sensitivity tables |
-| `/pitch-deck` | Sequoia 12-slide, YC 10-slide, Kawasaki 10/20/30 investor decks. Also: sales decks, board decks, partnership proposals. 5 storytelling frameworks (AIDA, SCQA, PAS, Minto Pyramid, Hero's Journey) |
-| `/strategy-analyst` | 12 strategic frameworks: SWOT/TOWS, Porter's Five Forces, PESTEL, BCG Matrix, Ansoff, Blue Ocean ERRC, JTBD, TAM/SAM/SOM, OKRs, Value Chain, MECE Issue Trees, Competitive Positioning |
-| `/fundraising-advisor` | SAFE/convertible note mechanics, term sheet analysis (economic + control terms + red flags), cap table waterfall, due diligence data room structure, investor update templates, valuation benchmarks by stage |
-| `/market-sizing` | TAM/SAM/SOM dual-method (top-down + bottom-up), customer segmentation with ICP, competitive intelligence matrices, pricing research (Van Westendorp, Gabor-Granger), market entry assessment |
-| `/cfo-dashboard` | 3-tier KPI architecture (North Star → Operational → Functional), monthly P&L package, 13-week rolling cash flow forecast, variance analysis framework, board financial packages, SaaS metrics dashboard |
-| `/ops-planner` | OKR cascading with alignment check, capacity planning (engineering/sales/support models), DMAIC process optimization, workforce planning & comp frameworks, vendor evaluation with TCO, meeting operating system, risk register |
+| `/pitch-deck` | Sequoia 12-slide, YC 10-slide, Kawasaki 10/20/30 investor decks. Also: sales decks, board decks, partnership proposals |
+| `/strategy-analyst` | 12 strategic frameworks: SWOT/TOWS, Porter's Five Forces, PESTEL, BCG Matrix, Blue Ocean, JTBD, Value Chain, MECE |
+| `/fundraising-advisor` | SAFE/convertible notes, term sheet analysis, cap table waterfall, due diligence data room, investor update templates |
+| `/market-sizing` | TAM/SAM/SOM dual-method, customer segmentation with ICP, competitive intelligence, pricing research (Van Westendorp) |
+| `/cfo-dashboard` | 3-tier KPI architecture, monthly P&L package, 13-week rolling cash flow forecast, variance analysis, board packages |
+| `/ops-planner` | OKR cascading, capacity planning (eng/sales/support), DMAIC process optimization, workforce planning, vendor evaluation |
+| `/prd` | Amazon Working Backwards PR/FAQ, feature specs with Given/When/Then, RICE/ICE/MoSCoW prioritization, user story mapping, roadmaps |
+| `/legal-docs` | SaaS agreements, ToS, privacy policies (GDPR + 152-ФЗ + CCPA), NDAs, employment contracts (US + Russian ТК РФ), IP assignment, shareholders agreements, international arbitration |
+| `/hr-toolkit` | Job descriptions, structured interview scorecards (STAR), OKR-based performance reviews, 9-box talent grid, 30/60/90 onboarding, IC1-IC6/M1-M4 leveling, equity ranges, offer letters, PIPs |
+| `/sales-playbook` | MEDDIC/BANT/SPICED qualification, SPIN selling discovery, objection handling matrix, competitive battlecards, pipeline stages with entry/exit criteria, commission models with accelerators |
+| `/customer-success` | Composite health score (0-100), QBR templates, 5-phase onboarding playbook, churn prevention (8 signals + 4 save plays), expansion playbook, NRR formula, customer segmentation |
+| `/marketing-strategy` | GTM launch plans, brand positioning (messaging hierarchy), content strategy by funnel stage, email sequences, SEO framework, paid media strategy, marketing analytics dashboard |
+| `/exec-comms` | Board memos, investor updates, all-hands scripts, press releases, crisis communications (P0-P2), internal announcements, annual reports |
+| `/growth-analytics` | AARRR pirate metrics, A/B testing framework (sample size calculator), cohort analysis tables, attribution modeling (W-shaped), North Star Metric, growth accounting, ICE/RICE prioritization |
+| `/risk-compliance` | SOC 2 Type II readiness, GDPR checklist, ISO 27001 Annex A controls, Russian 152-ФЗ data localization, enterprise risk register, vendor risk assessment, BCP/DR, audit readiness |
+| `/ma-advisor` | Due diligence (financial/legal/technical/commercial/HR), valuation methods (revenue multiples, DCF, comps), deal structures, LOI templates, post-merger integration, acqui-hire framework |
 
 ---
 
@@ -342,7 +356,7 @@ claude-superpower/
 │   ├── doc-gen/           # documentation generation
 │   └── dep-audit/         # dependency audit (context: fork)
 ├── commands/
-│   ├── general/           # 18: code-review, test-gen, business-plan, pitch-deck, etc.
+│   ├── general/           # 28: code-review, test-gen, business-plan, pitch-deck, prd, legal-docs, etc.
 │   ├── ui/                # 22: design-system, react-component, mobile-design, etc.
 │   ├── gsd/               # 31: project management commands
 │   └── subagent-catalog/  # 5: list, search, fetch, invalidate

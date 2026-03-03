@@ -2,7 +2,7 @@
 
 ## Agent System Overview
 
-You have **298 specialized subagents** at `~/.claude/agents/` and **40 slash command agents** at `~/.claude/commands/`. You MUST proactively delegate work to the most appropriate agent. Do NOT do everything yourself when a specialist exists.
+You have **298 specialized subagents** at `~/.claude/agents/` and **51 slash command agents** at `~/.claude/commands/`. You MUST proactively delegate work to the most appropriate agent. Do NOT do everything yourself when a specialist exists.
 
 ## Slash Command vs Subagent Decision
 
@@ -282,6 +282,16 @@ When writing, debugging, or reviewing code in a specific language:
 - Market sizing & competitive intel (TAM/SAM/SOM, segmentation) → `/market-sizing`
 - CFO financial reporting (KPIs, variance, cash flow, board packages) → `/cfo-dashboard`
 - Operations planning (capacity, Lean/Six Sigma, OKRs, workforce) → `/ops-planner`
+- Product requirements (PRD, feature specs, user stories, roadmaps) → `/prd`
+- Legal documents (contracts, ToS, privacy, NDA, Russian/intl law) → `/legal-docs`
+- HR & People Ops (JDs, interviews, reviews, comp frameworks) → `/hr-toolkit`
+- Sales playbooks (MEDDIC, SPIN, objections, battlecards) → `/sales-playbook`
+- Customer success (health scoring, QBR, churn prevention, NRR) → `/customer-success`
+- Marketing strategy (GTM, content, SEO, email, paid media) → `/marketing-strategy`
+- Executive communications (board memos, investor updates, crisis) → `/exec-comms`
+- Growth analytics (AARRR, A/B testing, cohorts, attribution) → `/growth-analytics`
+- Risk & compliance (SOC 2, GDPR, ISO 27001, 152-ФЗ) → `/risk-compliance`
+- M&A advisory (due diligence, valuation, deal structure, PMI) → `/ma-advisor`
 
 ### 9. Developer Tooling
 - Build systems → `build-engineer`
@@ -419,9 +429,9 @@ The workflow chains defined above now have skill entry points:
 **Power Tools** (2): `/scaffold`, `/impact-check`
 **Background** (2): `project-context` (auto-context), `agent-guide` (routing reference)
 
-### Slash Commands (40 total, invoke with /)
+### Slash Commands (51 total, invoke with /)
 **General** (10): `/code-review`, `/creative-writer`, `/data-analyst`, `/project-manager`, `/research-assistant`, `/system-architect`, `/test-gen`, `/explain`, `/security-scan`, `/perf-audit`
-**Business** (8): `/business-plan`, `/financial-modeler`, `/pitch-deck`, `/strategy-analyst`, `/fundraising-advisor`, `/market-sizing`, `/cfo-dashboard`, `/ops-planner`
+**Business** (19): `/business-plan`, `/financial-modeler`, `/pitch-deck`, `/strategy-analyst`, `/fundraising-advisor`, `/market-sizing`, `/cfo-dashboard`, `/ops-planner`, `/prd`, `/legal-docs`, `/hr-toolkit`, `/sales-playbook`, `/customer-success`, `/marketing-strategy`, `/exec-comms`, `/growth-analytics`, `/risk-compliance`, `/ma-advisor`
 **UI** (22): `/ui:design-system`, `/ui:design-expert`, `/ui:mobile-design`, `/ui:react-component`, `/ui:css-architecture`, `/ui:user-persona`, `/ui:micro-interactions`, `/ui:mobile-first-layout`, `/ui:aria-accessibility`, `/ui:wireframe`, `/ui:form-patterns`, `/ui:table-patterns`, `/ui:scroll-animations`, `/ui:css-modern-patterns`, `/ui:page-transitions`, `/ui:dashboard-layout`, `/ui:icon-system`, `/ui:multi-theme`, `/ui:og-image`, `/ui:typography-system`, `/ui:color-system`, `/ui:pdf-template`
 
 ### Subagents (298 total, in `~/.claude/agents/`)
